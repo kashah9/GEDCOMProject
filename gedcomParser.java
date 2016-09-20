@@ -1,7 +1,8 @@
 import java.io.*;
 import java.util.*;
 import java.text.*;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 class FamDetails
 {
 	TreeMap individual;
@@ -305,25 +306,20 @@ class gedcomParser
 			System.out.println("Individual Map Size: "+indiMap.size());
 			
 			Set set = indiMap.entrySet();
+                        
 			Iterator it = set.iterator();
 			while(it.hasNext())
 			{
 				Map.Entry me = (Map.Entry)it.next();
 				System.out.println("Key is: "+me.getKey());
-				System.out.println("Value is: "+me.getValue());
+				//  Map temp = new HashMap();
+				Map temp = (Map)me.getValue();
+				String s = (String)temp.get("NAME");
+				String[] names = s.split("/");
+				System.out.println("Value is: "+names[0]+" "+names[1]);                
 			}
 			
-			System.out.println("Family Map Size: "+famMap.size());
-			set = famMap.entrySet();
-			it = set.iterator();
-			while(it.hasNext())
-			{
-				Map.Entry me = (Map.Entry)it.next();
-				System.out.println("Key is: "+me.getKey());
-				System.out.println("Value is: "+me.getValue());
-			}
-			
-			FamDetails fds = new FamDetails(indiMap,famMap);
+			        
 			
 		}
 		catch(Exception e)
