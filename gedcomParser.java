@@ -1,7 +1,8 @@
 import java.io.*;
 import java.util.*;
 import java.text.*;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 class FamDetails
 {
 	TreeMap individual;
@@ -305,12 +306,17 @@ class gedcomParser
 			System.out.println("Individual Map Size: "+indiMap.size());
 			
 			Set set = indiMap.entrySet();
+                        
 			Iterator it = set.iterator();
 			while(it.hasNext())
 			{
 				Map.Entry me = (Map.Entry)it.next();
 				System.out.println("Key is: "+me.getKey());
-				System.out.println("Value is: "+me.getValue());
+				//  Map temp = new HashMap();
+				Map temp = (Map)me.getValue();
+				String s = (String)temp.get("NAME");
+				String[] names = s.split("/");
+				System.out.println("Value is: "+names[0]+" "+names[1]);                
 			}
 			
 			System.out.println("Family Map Size: "+famMap.size());
@@ -320,10 +326,28 @@ class gedcomParser
 			{
 				Map.Entry me = (Map.Entry)it.next();
 				System.out.println("Key is: "+me.getKey());
-				System.out.println("Value is: "+me.getValue());
+				Map temp1 = (Map)me.getValue();
+				String wifey = (String)temp1.get("WIFE");
+				String hubby = (String)temp1.get("HUSB");
+				
+				HashMap wifeyMap = (HashMap)indiMap.get(wifey);
+				//System.out.println("wifeyMap:"+wifeyMap.size());
+				String name = (String)wifeyMap.get("NAME");
+				//System.out.println("Wife: "+wifey);
+				String[] names = name.split("/");
+				
+				System.out.println("Wife: "+names[0]+" "+names[1]);
+				
+				HashMap hubbyMap = (HashMap)indiMap.get(hubby);
+				String name1 = (String)hubbyMap.get("NAME");
+				String[] names1 = name1.split("/");
+				
+				System.out.println("Husband: "+names1[0]+" "+names1[1]);
 			}
 			
 			FamDetails fds = new FamDetails(indiMap,famMap);
+                       
+                        
 			
 		}
 		catch(Exception e)
