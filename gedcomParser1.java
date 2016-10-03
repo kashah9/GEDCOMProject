@@ -19,6 +19,186 @@ class FamDetails
 		individual = indiMap;
 		family = famMap;
 	}
+	
+	public void dateBeforeCurrentDate()
+	{
+		Map birthDateList = new HashMap();
+		Map marrDateList = new HashMap();
+		Map divDateList = new HashMap();
+		Map deathDateList = new HashMap();
+		
+		Set set = individual.entrySet();
+		Iterator it = set.iterator();
+		while(it.hasNext())
+		{
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String key = me.getKey().toString();
+			//System.out.println("Key is: "+key);
+			
+			HashMap value = (HashMap)me.getValue();
+			//System.out.println("Value is: "+value);
+			if(value.containsKey("BIRT"))
+			{
+				birthDateList.put(key,value.get("BIRT"));
+			}
+			
+			if(value.containsKey("DEAT"))
+			{
+				deathDateList.put(key,value.get("DEAT"));
+			}
+		}
+		
+		set = family.entrySet();
+		it = set.iterator();
+		while(it.hasNext())
+		{
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String key = me.getKey().toString();
+			//System.out.println("Key is: "+key);
+			
+			HashMap value = (HashMap)me.getValue();
+			//System.out.println("Value is: "+value);
+			
+			if(value.containsKey("MARR"))
+			{
+				marrDateList.put(key,value.get("MARR"));
+			}
+			if(value.containsKey("DIV"))
+			{
+				divDateList.put(key,value.get("DIV"));
+			}
+			
+		}
+		
+		
+		//System.out.println("Size of DateList is: "+birthDateList.size());
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+		Date currentDate = new Date();
+		
+		set = birthDateList.entrySet();
+		it = set.iterator();
+		while(it.hasNext())
+		{
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String idKey = me.getKey().toString();
+			Date dateVal = (Date)me.getValue();
+			
+			if (dateVal.compareTo(currentDate) == 1)
+			{
+				System.out.println("Warning: Individual ID "+idKey+" has Birthdate "+dateVal+" after current date.");
+			} 
+		}
+		
+		set = deathDateList.entrySet();
+		it = set.iterator();
+		while(it.hasNext())
+		{
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String idKey = me.getKey().toString();
+			Date dateVal = (Date)me.getValue();
+			
+			if (dateVal.compareTo(currentDate) == 1)
+			{
+				System.out.println("Warning: Individual ID "+idKey+" has Deathdate "+dateVal+" after current date.");
+			} 
+		}
+		
+		set = marrDateList.entrySet();
+		it = set.iterator();
+		while(it.hasNext())
+		{
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String idKey = me.getKey().toString();
+			Date dateVal = (Date)me.getValue();
+			
+			if (dateVal.compareTo(currentDate) == 1)
+			{
+				System.out.println("Warning: Family ID "+idKey+" has Marriagedate "+dateVal+" after current date.");
+			} 
+		}
+		
+		set = divDateList.entrySet();
+		it = set.iterator();
+		while(it.hasNext())
+		{
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String idKey = me.getKey().toString();
+			Date dateVal = (Date)me.getValue();
+			
+			if (dateVal.compareTo(currentDate) == 1)
+			{
+				System.out.println("Warning: Family ID "+idKey+" has Divorcedate "+dateVal+" after current date.");
+			} 
+		}
+		
+	}
+	
+	public void birthBeforeMarriageDate()
+	{
+		Set set = family.entrySet();
+		Iterator it = set.iterator();
+		while(it.hasNext())
+		{
+			Date marrDate = new Date();
+			
+			String wifey = "";
+			String hubby = "";
+			//Date wifeBirth = "";
+			//Date husbBirth = "";
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String famkey = me.getKey().toString();
+			//System.out.println("Key is: "+key);
+			
+			HashMap famvalue = (HashMap)me.getValue();
+			//System.out.println("Value is: "+famvalue);
+			if(famvalue.containsKey("MARR"))
+			{
+				marrDate = (Date)famvalue.get("MARR");
+				//System.out.println("MarrDate is: "+marrDate);
+			}
+			
+			if(famvalue.containsKey("WIFE"))
+			{
+				wifey = (String)famvalue.get("WIFE");
+			}
+			if(famvalue.containsKey("HUSB"))
+			{
+				hubby = (String)famvalue.get("HUSB");
+			}	
+			
+			
+			if(wifey != "")
+			{
+				HashMap wifeyMap = (HashMap)individual.get(wifey);
+				Date wifeBirth = (Date)wifeyMap.get("BIRT");
+				//System.out.println("WifeDate is: "+wifeBirth);
+				if(wifeBirth.compareTo(marrDate) == 1)
+				{
+					System.out.println("Warning: Family ID "+famkey+" has wife who has marriage date after her birthdate.");
+				}
+			}
+			
+			if(hubby != "")
+			{
+				HashMap hubbyMap = (HashMap)individual.get(hubby);
+				Date husbBirth = (Date)hubbyMap.get("BIRT");
+				if(husbBirth.compareTo(marrDate) == 1)
+				{
+					System.out.println("Warning: Family ID "+famkey+" has husband who has marriage date after his birthdate.");
+				}
+			}
+			
+			
+		}
+	}
+	
 }
 
 
@@ -46,7 +226,7 @@ class gedcomParser1
 			
 			String line;
 			List lineList = new ArrayList();
-			br = new BufferedReader(new FileReader("C:\\Users\\Ketu\\Desktop\\CS555 Agile\\Week 2\\KetuShah.P01.ged"));
+			br = new BufferedReader(new FileReader("C:\\Users\\Ketu\\Desktop\\CS555 Agile\\Week 4\\familyTreeWithMistakes.ged"));
 			while((line = br.readLine()) != null)
 			{
 				lineList.add(line);
@@ -258,19 +438,28 @@ class gedcomParser1
 								}
 								else if(dateDesc == 2)
 								{
-									String date = strdel[2]+" "+strdel[3]+""+strdel[4];
+									String strDate = strdel[2]+"-"+strdel[3]+"-"+strdel[4];
+									SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+									Date date=dateFormat.parse(strDate);
+									
 									desc.put("DEAT",date);
 									dateDesc = 0;
 								}
 								else if(dateDesc == 3)
 								{
-									String date = strdel[2]+" "+strdel[3]+""+strdel[4];
+									String strDate = strdel[2]+"-"+strdel[3]+"-"+strdel[4];
+									SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+									Date date=dateFormat.parse(strDate);
+									
 									desc.put("MARR",date);
 									dateDesc = 0;
 								}
 								else if(dateDesc == 4)
 								{
-									String date = strdel[2]+" "+strdel[3]+""+strdel[4];
+									String strDate = strdel[2]+"-"+strdel[3]+"-"+strdel[4];
+									SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+									Date date=dateFormat.parse(strDate);
+									
 									desc.put("DIV",date);
 									dateDesc = 0;
 								}
@@ -346,9 +535,12 @@ class gedcomParser1
 			}
 			
 			FamDetails fds = new FamDetails(indiMap,famMap);
-                       
-                        
 			
+			//US 01
+			fds.dateBeforeCurrentDate();
+			
+			//US 02
+			fds.birthBeforeMarriageDate();
 		}
 		catch(Exception e)
 		{
