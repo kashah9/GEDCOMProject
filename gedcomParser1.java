@@ -199,6 +199,100 @@ class FamDetails
 		}
 	}
 	
+        /*Archit_Zaveri_10409888*/
+	public void marriageBeforeDivorce()
+	{
+		Set set = family.entrySet();
+		Iterator it = set.iterator();
+		while(it.hasNext())
+		{
+			//Date marrDate = new Date();
+			
+			
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String famkey = me.getKey().toString();
+			//System.out.println("Key is: "+key);
+			
+			HashMap famvalue = (HashMap)me.getValue();
+			//System.out.println("Value is: "+famvalue);
+			if(famvalue.containsKey("MARR") && famvalue.containsKey("DIV"))
+			{
+				Date marrDate = (Date)famvalue.get("MARR");
+				Date divDate = (Date)famvalue.get("DIV");
+				if(marrDate.compareTo(divDate)==1)
+				{
+					System.out.println("Warning: Family ID "+famkey+" has marriage date "+marrDate+" after divorce date.");
+				}
+				//System.out.println("MarrDate is: "+marrDate);
+			}
+		}
+	}
+	
+	public void marriageBeforeDeath()
+	{
+		Set set = family.entrySet();
+		Iterator it = set.iterator();
+		while(it.hasNext())
+		{
+			Date marrDate = new Date();
+			
+			String wifey = "";
+			String hubby = "";
+			//Date wifeBirth = "";
+			//Date husbBirth = "";
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String famkey = me.getKey().toString();
+			//System.out.println("Key is: "+key);
+			
+			HashMap famvalue = (HashMap)me.getValue();
+			//System.out.println("Value is: "+famvalue);
+			if(famvalue.containsKey("MARR"))
+			{
+				marrDate = (Date)famvalue.get("MARR");
+				//System.out.println("MarrDate is: "+marrDate);
+			}
+			
+			if(famvalue.containsKey("WIFE"))
+			{
+				wifey = (String)famvalue.get("WIFE");
+			}
+			if(famvalue.containsKey("HUSB"))
+			{
+				hubby = (String)famvalue.get("HUSB");
+			}	
+			
+			
+			if(wifey != "")
+			{
+				HashMap wifeyMap = (HashMap)individual.get(wifey);
+				if(wifeyMap.containsKey("DEAT"))
+				{
+					Date wifeDeath = (Date)wifeyMap.get("DEAT");
+					//System.out.println("WifeDate is: "+wifeBirth);
+					if(marrDate.compareTo(wifeDeath) == 1)
+					{
+						System.out.println("Warning: Family ID "+famkey+" has wife who has marriage date after her death.");
+					}
+				}
+			}
+			
+			if(hubby != "")
+			{
+				HashMap hubbyMap = (HashMap)individual.get(hubby);
+				if(hubbyMap.containsKey("DEAT"))
+				{
+					Date husbDeath = (Date)hubbyMap.get("DEAT");
+					if(marrDate.compareTo(husbDeath) == 1)
+					{
+						System.out.println("Warning: Family ID "+famkey+" has husband who has marriage date after his death.");
+					}
+				}
+			}
+		}
+	}
+	
 }
 
 
@@ -215,7 +309,7 @@ class gedcomParser1
 				
 		try
 		{
-			File fl = new File("C:\\Users\\Ketu\\Desktop\\CS555 Agile\\Week 2\\output.txt");
+			File fl = new File("D:\\CS 555 Stevens\\Team03_Project_Individual_Contri\\output.txt");
 			if (!fl.exists()) 
 			{
 				fl.createNewFile();
@@ -226,7 +320,7 @@ class gedcomParser1
 			
 			String line;
 			List lineList = new ArrayList();
-			br = new BufferedReader(new FileReader("C:\\Users\\Ketu\\Desktop\\CS555 Agile\\Week 4\\familyTreeWithMistakes.ged"));
+			br = new BufferedReader(new FileReader("D:\\CS 555 Stevens\\Team03_Project_Individual_Contri\\familyTreeWithMistakes.ged"));
 			while((line = br.readLine()) != null)
 			{
 				lineList.add(line);
@@ -541,6 +635,10 @@ class gedcomParser1
 			
 			//US 02
 			fds.birthBeforeMarriageDate();
+			
+			fds.marriageBeforeDivorce();
+			
+			fds.marriageBeforeDeath();
 		}
 		catch(Exception e)
 		{
