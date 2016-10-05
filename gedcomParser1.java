@@ -293,8 +293,145 @@ class FamDetails
 		}
 	}
 	
-}
 
+/*Shweta_Chowdary_10406940*/
+public void birthBeforedeath()
+	{
+		Set set = family.entrySet();
+		Iterator it = set.iterator();
+		while(it.hasNext())
+		{
+			Date death_date = new Date();
+			
+			String wifey = "";
+			String hubby = "";
+			//Date wifeBirth = "";
+			//Date husbBirth = "";
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String famkey = me.getKey().toString();
+			//System.out.println("Key is: "+key);
+			
+			HashMap famvalue = (HashMap)me.getValue();
+			//System.out.println("Value is: "+famvalue);
+			if(famvalue.containsKey("DEAT"))
+			{
+				death_date = (Date)famvalue.get("DEAT");
+				//System.out.println("MarrDate is: "+marrDate);
+			}
+			
+			if(famvalue.containsKey("WIFE"))
+			{
+				wifey = (String)famvalue.get("WIFE");
+			}
+			if(famvalue.containsKey("HUSB"))
+			{
+				hubby = (String)famvalue.get("HUSB");
+			}	
+			
+			
+			if(wifey != "")
+			{
+				HashMap wifeyMap = (HashMap)individual.get(wifey);
+				Date wifeBirth = (Date)wifeyMap.get("BIRT");
+				//System.out.println("WifeDate is: "+wifeBirth);
+				if(wifeBirth.compareTo(death_date) == 1)
+				{
+					System.out.println("Warning: Family ID "+famkey+" has wife who has death date beofer her birthdate.");
+				}
+			}
+			
+			if(hubby != "")
+			{
+				HashMap hubbyMap = (HashMap)individual.get(hubby);
+				Date husbBirth = (Date)hubbyMap.get("BIRT");
+				if(husbBirth.compareTo(death_date) == 1)
+				{
+					System.out.println("Warning: Family ID "+famkey+" has husband who has death date beofore his birthdate.");
+				}
+			}
+			
+			
+		}
+	}
+
+public void birthbeforemarriageofparents()
+	{
+		Set set = family.entrySet();
+		Iterator it = set.iterator();
+		while(it.hasNext())
+		{
+			Date mar_date = new Date();
+			
+			String wifey = "";
+			String hubby = "";
+                        String child = "";
+			//Date wifeBirth = "";
+			//Date husbBirth = "";
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String famkey = me.getKey().toString();
+			//System.out.println("Key is: "+key);
+			
+			HashMap famvalue = (HashMap)me.getValue();
+			//System.out.println("Value is: "+famvalue);
+			if(famvalue.containsKey("MARR"))
+			{
+				mar_date = (Date)famvalue.get("MARR");
+				//System.out.println("MarrDate is: "+marrDate);
+			}
+			
+			if(famvalue.containsKey("WIFE"))
+			{
+				wifey = (String)famvalue.get("WIFE");
+			}
+			if(famvalue.containsKey("HUSB"))
+			{
+				hubby = (String)famvalue.get("HUSB");
+			}	
+			if(famvalue.containsKey("CHIL"))
+			{
+				child = (String)famvalue.get("CHIL");
+			}	
+			
+			if(wifey != "")
+			{
+				HashMap wifeyMap = (HashMap)individual.get(wifey);
+				Date wifeBirth = (Date)wifeyMap.get("BIRT");
+				//System.out.println("WifeDate is: "+wifeBirth);
+				if(wifeBirth.compareTo(mar_date) == 1)
+				{
+					System.out.println("Warning: Family ID "+famkey+" has wife who has death date beofer her birthdate.");
+				}
+			}
+			
+			if(hubby != "")
+			{
+				HashMap hubbyMap = (HashMap)individual.get(hubby);
+				Date husbBirth = (Date)hubbyMap.get("BIRT");
+				if(husbBirth.compareTo(mar_date) == 1)
+				{
+					System.out.println("Warning: Family ID "+famkey+" has husband who has death date beofore his birthdate.");
+				}
+			}
+			if(child != "")
+			{
+				HashMap hubbyMap = (HashMap)individual.get(hubby);
+				Date childBirth = (Date)hubbyMap.get("BIRT");
+				if(childBirth.compareTo(mar_date) == 1)
+				{
+					System.out.println("Warning: Family ID "+famkey+" has child who was born before the death of his/her parents.");
+				}
+			}
+                        
+                        
+                        
+			
+		}
+	}
+
+
+}
 
 class gedcomParser1
 {
@@ -639,6 +776,12 @@ class gedcomParser1
 			fds.marriageBeforeDivorce();
 			
 			fds.marriageBeforeDeath();
+                        
+                        fds.birthBeforedeath();
+                        
+                        fds.birthbeforemarriageofparents();
+                        
+                        
 		}
 		catch(Exception e)
 		{
