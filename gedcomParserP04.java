@@ -20,8 +20,11 @@ class FamDetails
 		family = famMap;
 	}
 	
-	public void dateBeforeCurrentDate()
+	//Ketu Shah
+	public String dateBeforeCurrentDate()
 	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
 		Map birthDateList = new HashMap();
 		Map marrDateList = new HashMap();
 		Map divDateList = new HashMap();
@@ -89,6 +92,8 @@ class FamDetails
 			if (dateVal.compareTo(currentDate) == 1)
 			{
 				System.out.println("Warning: Individual ID "+idKey+" has Birthdate "+dateVal+" after current date.");
+				output += "Warning: Individual ID "+idKey+" has Birthdate "+dateVal+" after current date.";
+				output += eol;
 			} 
 		}
 		
@@ -101,9 +106,12 @@ class FamDetails
 			String idKey = me.getKey().toString();
 			Date dateVal = (Date)me.getValue();
 			
+			
 			if (dateVal.compareTo(currentDate) == 1)
 			{
 				System.out.println("Warning: Individual ID "+idKey+" has Deathdate "+dateVal+" after current date.");
+				output += "Warning: Individual ID "+idKey+" has Deathdate "+dateVal+" after current date.";
+				output += eol;
 			} 
 		}
 		
@@ -119,6 +127,8 @@ class FamDetails
 			if (dateVal.compareTo(currentDate) == 1)
 			{
 				System.out.println("Warning: Family ID "+idKey+" has Marriagedate "+dateVal+" after current date.");
+				output += "Warning: Family ID "+idKey+" has Marriagedate "+dateVal+" after current date.";
+				output += eol;
 			} 
 		}
 		
@@ -134,13 +144,17 @@ class FamDetails
 			if (dateVal.compareTo(currentDate) == 1)
 			{
 				System.out.println("Warning: Family ID "+idKey+" has Divorcedate "+dateVal+" after current date.");
+				output += "Warning: Family ID "+idKey+" has Divorcedate "+dateVal+" after current date.";
+				output += eol;
 			} 
 		}
-		
+		return output;
 	}
 	
-	public void birthBeforeMarriageDate()
+	public String birthBeforeMarriageDate()
 	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
 		Set set = family.entrySet();
 		Iterator it = set.iterator();
 		while(it.hasNext())
@@ -182,6 +196,8 @@ class FamDetails
 				if(wifeBirth.compareTo(marrDate) == 1)
 				{
 					System.out.println("Warning: Family ID "+famkey+" has wife who has marriage date after her birthdate.");
+					output += "Warning: Family ID "+famkey+" has wife who has marriage date after her birthdate.";
+					output += eol;
 				}
 			}
 			
@@ -192,16 +208,21 @@ class FamDetails
 				if(husbBirth.compareTo(marrDate) == 1)
 				{
 					System.out.println("Warning: Family ID "+famkey+" has husband who has marriage date after his birthdate.");
+					output += "Warning: Family ID "+famkey+" has husband who has marriage date after his birthdate.";
+					output += eol;
 				}
 			}
 			
 			
 		}
+		return output;
 	}
 	
         /*Archit_Zaveri_10409888*/
-	public void marriageBeforeDivorce()
+	public String marriageBeforeDivorce()
 	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
 		Set set = family.entrySet();
 		Iterator it = set.iterator();
 		while(it.hasNext())
@@ -223,14 +244,19 @@ class FamDetails
 				if(marrDate.compareTo(divDate)==1)
 				{
 					System.out.println("Warning: Family ID "+famkey+" has marriage date "+marrDate+" after divorce date.");
+					output += "Warning: Family ID "+famkey+" has marriage date "+marrDate+" after divorce date.";
+					output += eol;
 				}
 				//System.out.println("MarrDate is: "+marrDate);
 			}
 		}
+		return output;
 	}
 	
-	public void marriageBeforeDeath()
+	public String marriageBeforeDeath()
 	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
 		Set set = family.entrySet();
 		Iterator it = set.iterator();
 		while(it.hasNext())
@@ -274,6 +300,8 @@ class FamDetails
 					if(marrDate.compareTo(wifeDeath) == 1)
 					{
 						System.out.println("Warning: Family ID "+famkey+" has wife who has marriage date after her death.");
+						output += "Warning: Family ID "+famkey+" has wife who has marriage date after her death.";
+						output += eol;
 					}
 				}
 			}
@@ -287,16 +315,21 @@ class FamDetails
 					if(marrDate.compareTo(husbDeath) == 1)
 					{
 						System.out.println("Warning: Family ID "+famkey+" has husband who has marriage date after his death.");
+						output += "Warning: Family ID "+famkey+" has wife who has marriage date after her death.";
+						output += eol;
 					}
 				}
 			}
 		}
+		return output;
 	}
 	
 
 /*Shweta_Chowdary_10406940*/
-public void birthBeforedeath()
+public String birthBeforedeath()
 	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
 		Set set = family.entrySet();
 		Iterator it = set.iterator();
 		while(it.hasNext())
@@ -338,6 +371,8 @@ public void birthBeforedeath()
 				if(wifeBirth.compareTo(death_date) == 1)
 				{
 					System.out.println("Warning: Family ID "+famkey+" has wife who has death date beofer her birthdate.");
+					output += "Warning: Family ID "+famkey+" has wife who has death date beofer her birthdate.";
+					output += eol;
 				}
 			}
 			
@@ -348,15 +383,20 @@ public void birthBeforedeath()
 				if(husbBirth.compareTo(death_date) == 1)
 				{
 					System.out.println("Warning: Family ID "+famkey+" has husband who has death date beofore his birthdate.");
+					output += "Warning: Family ID "+famkey+" has husband who has death date beofore his birthdate.";
+					output += eol;
 				}
 			}
 			
 			
 		}
+		return output;
 	}
 
-	public void birthbeforemarriageofparents()
+	public String birthbeforemarriageofparents()
 	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
 		Set set = family.entrySet();
 		Iterator it = set.iterator();
 		while(it.hasNext())
@@ -365,7 +405,7 @@ public void birthBeforedeath()
 			
 			String wifey = "";
 			String hubby = "";
-                        String child = "";
+			String child = "";
 			//Date wifeBirth = "";
 			//Date husbBirth = "";
 			Map.Entry me = (Map.Entry)it.next();
@@ -402,6 +442,7 @@ public void birthBeforedeath()
 				if(wifeBirth.compareTo(mar_date) == 1)
 				{
 					System.out.println("Warning: Family ID "+famkey+" has wife who has death date beofer her birthdate.");
+					output += "Warning: Family ID "+famkey+" has wife who has death date beofer her birthdate." + eol;
 				}
 			}
 			
@@ -412,6 +453,8 @@ public void birthBeforedeath()
 				if(husbBirth.compareTo(mar_date) == 1)
 				{
 					System.out.println("Warning: Family ID "+famkey+" has husband who has death date beofore his birthdate.");
+					output += "Warning: Family ID "+famkey+" has husband who has death date beofore his birthdate.";
+					output += eol;
 				}
 			}
 			if(child != "")
@@ -421,12 +464,17 @@ public void birthBeforedeath()
 				if(childBirth.compareTo(mar_date) == 1)
 				{
 					System.out.println("Warning: Family ID "+famkey+" has child who was born before the death of his/her parents.");
+					output += "Warning: Family ID "+famkey+" has child who was born before the death of his/her parents.";
+					output += eol;
 				}
 			}
         }
+		return output;
 	}
-	public void divorceBeforeDeath()
+	public String divorceBeforeDeath()
 	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
 		Set set = family.entrySet();
 		Iterator it = set.iterator();
 		while(it.hasNext())
@@ -470,6 +518,8 @@ public void birthBeforedeath()
 					if(divDate.compareTo(wifeDeath) == 1)
 					{
 						System.out.println("Warning: Family ID "+famkey+" has wife who has divorce date after her death.");
+						output += "Warning: Family ID "+famkey+" has wife who has divorce date after her death.";
+						output += eol;
 					}
 				}
 			}
@@ -483,15 +533,20 @@ public void birthBeforedeath()
 					if(divDate.compareTo(husbDeath) == 1)
 					{
 						System.out.println("Warning: Family ID "+famkey+" has husband who has divorce date after his death.");
+						output += "Warning: Family ID "+famkey+" has husband who has divorce date after his death.";
+						output += eol;
 					}
 				}
 			}
 		}
+		return output;
 	}
-	public void birthafterdeathofparents()
+	public String birthafterdeathofparents()
 	{
 		Set set = family.entrySet();
 		Iterator it = set.iterator();
+		String output = "";
+		String eol = System.getProperty("line.separator");
 		while(it.hasNext())
 		{
 			Date death_date = new Date();
@@ -528,33 +583,49 @@ public void birthBeforedeath()
 			if(wifey != "")
 			{
 				HashMap wifeyMap = (HashMap)individual.get(wifey);
-				Date wifeDeath = (Date)wifeyMap.get("DEAT");
-				//System.out.println("wifeDeath is: "+wifeDeath);
-				if(wifeDeath.compareTo(death_date) == 1)
+				if(wifeyMap.containsKey("DEAT"))
 				{
-					System.out.println("Warning: Family ID "+famkey+" has wife who has death date beofer her birthdate.");
+					Date wifeDeath = (Date)wifeyMap.get("DEAT");
+					//System.out.println("wifeDeath is: "+wifeDeath);
+					if(wifeDeath.compareTo(death_date) == 1)
+					{
+						System.out.println("Warning: Family ID "+famkey+" has wife who has death date beofer her birthdate.");
+						output += "Warning: Family ID "+famkey+" has wife who has death date beofer her birthdate.";
+						output += eol;
+					}
 				}
 			}
 			
 			if(hubby != "")
 			{
 				HashMap hubbyMap = (HashMap)individual.get(hubby);
-				Date husbDeath = (Date)hubbyMap.get("DEAT");
-				if(husbDeath.compareTo(death_date) == 1)
+				if(hubbyMap.containsKey("DEAT"))
 				{
-					System.out.println("Warning: Family ID "+famkey+" has husband who has death date beofore his birthdate.");
+					Date husbDeath = (Date)hubbyMap.get("DEAT");
+					if(husbDeath.compareTo(death_date) == 1)
+					{
+						System.out.println("Warning: Family ID "+famkey+" has husband who has death date beofore his birthdate.");
+						output += "Warning: Family ID "+famkey+" has husband who has death date beofore his birthdate.";
+						output += eol;
+					}
 				}
 			}
 			if(child != "")
 			{
-				HashMap hubbyMap = (HashMap)individual.get(hubby);
-				Date childBirth = (Date)hubbyMap.get("DEAT");
-				if(childBirth.compareTo(death_date) == 1)
+				HashMap hubbyMap = (HashMap)individual.get(child);
+				if(hubbyMap.containsKey("DEAT"))
 				{
-					System.out.println("Warning: Family ID "+famkey+" has child who was born after the death of his/her parents.");
+					Date childBirth = (Date)hubbyMap.get("DEAT");
+					if(childBirth.compareTo(death_date) == 1)
+					{
+						System.out.println("Warning: Family ID "+famkey+" has child who was born after the death of his/her parents.");
+						output += "Warning: Family ID "+famkey+" has child who was born after the death of his/her parents.";
+						output += eol;
+					}
 				}
 			}
         }
+		return output;
 	}
 }
 
@@ -571,7 +642,7 @@ class gedcomParserP04
 				
 		try
 		{
-			File fl = new File("C:\\Users\\skind\\Desktop\\Project04\\output.txt");
+			File fl = new File("C:\\Users\\Ketu\\Desktop\\CS555 Agile\\Week 5\\output.txt");
 			if (!fl.exists()) 
 			{
 				fl.createNewFile();
@@ -582,7 +653,7 @@ class gedcomParserP04
 			
 			String line;
 			List lineList = new ArrayList();
-			br = new BufferedReader(new FileReader("C:\\Users\\skind\\Desktop\\Project04\\familyTreeWithMistakes.ged"));
+			br = new BufferedReader(new FileReader("C:\\Users\\Ketu\\Desktop\\CS555 Agile\\Week 4\\familyTreeWithMistakes.ged"));
 			while((line = br.readLine()) != null)
 			{
 				lineList.add(line);
@@ -846,8 +917,7 @@ class gedcomParserP04
 				}
 			}
 			
-			bw.write(output);
-			bw.close();
+			
 			System.out.println("Individual Map Size: "+indiMap.size());
 			
 			Set set = indiMap.entrySet();
@@ -893,25 +963,27 @@ class gedcomParserP04
 			FamDetails fds = new FamDetails(indiMap,famMap);
 			
 			//US 01
-			fds.dateBeforeCurrentDate();
+			output+=fds.dateBeforeCurrentDate();
 			
 			//US 02
-			fds.birthBeforeMarriageDate();
+			output+=fds.birthBeforeMarriageDate();
 			
-			fds.marriageBeforeDivorce();
+			output+=fds.marriageBeforeDivorce();
 			
-			fds.marriageBeforeDeath();
+			output+=fds.marriageBeforeDeath();
                         
-            fds.birthBeforedeath();
+            output+=fds.birthBeforedeath();
                         
-            fds.birthbeforemarriageofparents();
+            output+=fds.birthbeforemarriageofparents();
 			
 			//US 06 
-			fds.divorceBeforeDeath();
-                   
+			output+=fds.divorceBeforeDeath();
+			
 			//US 09
-			fds.birthafterdeathofparents();
-                        
+			output+=fds.birthafterdeathofparents();
+			
+            bw.write(output);
+			bw.close();            
 		}
 		catch(Exception e)
 		{
