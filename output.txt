@@ -1,0 +1,27 @@
+Warning US#1: Individual ID @I1@ has Birthdate Wed Apr 11 00:00:00 EDT 2018 after current date.
+Warning US#2: Family ID @F2@ has wife who has marriage date after her birthdate.
+Warning: Family ID @F2@ has marriage date Tue May 06 00:00:00 EDT 1980 after divorce date.
+Warning: Family ID @F4@ has marriage date Sun Apr 07 00:00:00 EST 1963 after divorce date.
+Warning: Family ID @F4@ has wife who has marriage date after her death.
+Warning: Family ID @F2@ has wife who has death date beofer her birthdate.
+Warning US#6: Family ID @F4@ has wife who has divorce date before her marriage.
+
+Individual Summary
+ID 	 NAME         	 SEX 	 BIRTH DATE 				 DEATH DATE 				 FAMC 	 FAMS 	
+@I1@	John /Rooney/	M	Wed Apr 11 00:00:00 EDT 2018							@F1@		
+@I2@	Sam /Rooney/	M	Wed May 14 00:00:00 EDT 1969							@F3@	@F2@
+@I3@	Jeni /Rooney/	F	Sun May 10 00:00:00 EDT 1970									@F1@
+@I4@	Juliet /Sen/	F	Wed Jul 13 00:00:00 EDT 1988									@F2@
+@I5@	Shaan /Sen/	M	Tue Jun 12 00:00:00 EDT 1990							@F2@		
+@I6@	James /Rooney/	M	Tue Jul 11 00:00:00 EDT 1950									@F4@
+@I7@	Cathy /Rooney/	F	Thu May 11 00:00:00 EDT 1950									@F3@
+@I8@	Leni /Rooney/	F	Sun Aug 13 00:00:00 EDT 1950	Sat May 08 00:00:00 EDT 1920			@F4@
+
+
+
+Family Summary
+ID 	 HUSB 	 WIFE 	 CHIL 	 MARR DATE 			 DIV DATE
+@F1@	@I3@	@I2@	@I1@	Fri Apr 12 00:00:00 EST 1985				
+@F2@	@I4@	@I2@	@I5@	Tue May 06 00:00:00 EDT 1980	Wed Jun 15 00:00:00 EDT 1955
+@F3@	@I7@	@I6@	@I2@	Thu May 06 00:00:00 EDT 1965				
+@F4@	@I8@	@I6@	    	Sun Apr 07 00:00:00 EST 1963	Tue Apr 07 00:00:00 EST 1953
