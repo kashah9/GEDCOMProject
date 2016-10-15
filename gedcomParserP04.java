@@ -20,6 +20,97 @@ class FamDetails
 		family = famMap;
 	}
 	
+	public String printSummary()
+	{
+		String output = "";
+		String tabChar = "\t";
+		String eol = System.getProperty("line.separator");
+		Set set = individual.entrySet();
+		Iterator it = set.iterator();
+		output+=eol;
+		output+="Individual Summary";
+		output+=eol;
+		output+="ID \t NAME         \t SEX \t BIRTH DATE \t\t\t\t DEATH DATE \t\t\t\t FAMC \t FAMS \t";
+		output+=eol;
+		while(it.hasNext())
+		{
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String id = me.getKey().toString();
+			//System.out.println("Key is: "+key);
+			
+			HashMap value = (HashMap)me.getValue();
+			String name = (String)value.get("NAME");
+			String gender = (String)value.get("SEX");
+			String death = "\t\t\t\t\t";
+			if(value.containsKey("DEAT"))
+			{
+				death = (String)value.get("DEAT").toString();
+			}
+			String birth = (String)value.get("BIRT").toString();
+			String famc = "\t";
+			if(value.containsKey("FAMC"))
+			{
+				famc = (String)value.get("FAMC");
+			}
+			String fams = "\t";
+			if(value.containsKey("FAMS"))
+			{
+				fams = (String)value.get("FAMS");
+			}
+			output+=id+tabChar+name+tabChar+gender+tabChar+birth+tabChar+death+tabChar+famc+tabChar+fams;
+			output+=eol;
+		}
+		
+		set = family.entrySet();
+		it = set.iterator();
+		output+=eol;
+		output+=eol;
+		output+=eol;
+		output+="Family Summary";
+		output+=eol;
+		output+="ID \t HUSB \t WIFE \t CHIL \t MARR DATE \t\t\t DIV DATE";
+		output+=eol;
+		while(it.hasNext())
+		{
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String id = me.getKey().toString();
+			//System.out.println("Key is: "+key);
+			
+			HashMap value = (HashMap)me.getValue();
+			String husb = "    ";
+			if(value.containsKey("HUSB"))
+			{
+				husb = (String)value.get("HUSB");
+			}
+			String wife = "    ";
+			if(value.containsKey("WIFE"))
+			{
+				wife = (String)value.get("WIFE");
+			}
+			String chil = "    ";
+			if(value.containsKey("CHIL"))
+			{
+				chil = (String)value.get("CHIL");
+			}
+			String marr = "\t\t\t\t\t";
+			if(value.containsKey("MARR"))
+			{
+				marr = value.get("MARR").toString();
+			}
+			String div = "\t\t\t";
+			if(value.containsKey("DIV"))
+			{
+				div = value.get("DIV").toString();
+			}
+			
+			output+=id+tabChar+wife+tabChar+husb+tabChar+chil+tabChar+marr+tabChar+div;
+			output+=eol;
+		}
+		return output;
+	}
+	
 	//Ketu Shah
 	public String dateBeforeCurrentDate()
 	{
@@ -91,8 +182,8 @@ class FamDetails
 			
 			if (dateVal.compareTo(currentDate) == 1)
 			{
-				System.out.println("Warning: Individual ID "+idKey+" has Birthdate "+dateVal+" after current date.");
-				output += "Warning: Individual ID "+idKey+" has Birthdate "+dateVal+" after current date.";
+				System.out.println("Warning US#1: Individual ID "+idKey+" has Birthdate "+dateVal+" after current date.");
+				output += "Warning US#1: Individual ID "+idKey+" has Birthdate "+dateVal+" after current date.";
 				output += eol;
 			} 
 		}
@@ -109,8 +200,8 @@ class FamDetails
 			
 			if (dateVal.compareTo(currentDate) == 1)
 			{
-				System.out.println("Warning: Individual ID "+idKey+" has Deathdate "+dateVal+" after current date.");
-				output += "Warning: Individual ID "+idKey+" has Deathdate "+dateVal+" after current date.";
+				System.out.println("Warning US#1: Individual ID "+idKey+" has Deathdate "+dateVal+" after current date.");
+				output += "Warning US#1: Individual ID "+idKey+" has Deathdate "+dateVal+" after current date.";
 				output += eol;
 			} 
 		}
@@ -126,8 +217,8 @@ class FamDetails
 			
 			if (dateVal.compareTo(currentDate) == 1)
 			{
-				System.out.println("Warning: Family ID "+idKey+" has Marriagedate "+dateVal+" after current date.");
-				output += "Warning: Family ID "+idKey+" has Marriagedate "+dateVal+" after current date.";
+				System.out.println("Warning US#1: Family ID "+idKey+" has Marriagedate "+dateVal+" after current date.");
+				output += "Warning US#1: Family ID "+idKey+" has Marriagedate "+dateVal+" after current date.";
 				output += eol;
 			} 
 		}
@@ -143,8 +234,8 @@ class FamDetails
 			
 			if (dateVal.compareTo(currentDate) == 1)
 			{
-				System.out.println("Warning: Family ID "+idKey+" has Divorcedate "+dateVal+" after current date.");
-				output += "Warning: Family ID "+idKey+" has Divorcedate "+dateVal+" after current date.";
+				System.out.println("Warning US#1: Family ID "+idKey+" has Divorcedate "+dateVal+" after current date.");
+				output += "Warning US#1: Family ID "+idKey+" has Divorcedate "+dateVal+" after current date.";
 				output += eol;
 			} 
 		}
@@ -195,8 +286,8 @@ class FamDetails
 				//System.out.println("WifeDate is: "+wifeBirth);
 				if(wifeBirth.compareTo(marrDate) == 1)
 				{
-					System.out.println("Warning: Family ID "+famkey+" has wife who has marriage date after her birthdate.");
-					output += "Warning: Family ID "+famkey+" has wife who has marriage date after her birthdate.";
+					System.out.println("Warning US#2: Family ID "+famkey+" has wife who has marriage date after her birthdate.");
+					output += "Warning US#2: Family ID "+famkey+" has wife who has marriage date after her birthdate.";
 					output += eol;
 				}
 			}
@@ -207,8 +298,8 @@ class FamDetails
 				Date husbBirth = (Date)hubbyMap.get("BIRT");
 				if(husbBirth.compareTo(marrDate) == 1)
 				{
-					System.out.println("Warning: Family ID "+famkey+" has husband who has marriage date after his birthdate.");
-					output += "Warning: Family ID "+famkey+" has husband who has marriage date after his birthdate.";
+					System.out.println("Warning US#2: Family ID "+famkey+" has husband who has marriage date after his birthdate.");
+					output += "Warning US#2: Family ID "+famkey+" has husband who has marriage date after his birthdate.";
 					output += eol;
 				}
 			}
@@ -517,8 +608,8 @@ public String birthBeforedeath()
 					//System.out.println("WifeDate is: "+wifeBirth);
 					if(divDate.compareTo(wifeDeath) == 1)
 					{
-						System.out.println("Warning: Family ID "+famkey+" has wife who has divorce date after her death.");
-						output += "Warning: Family ID "+famkey+" has wife who has divorce date after her death.";
+						System.out.println("Warning US#6: Family ID "+famkey+" has wife who has divorce date after her marriage.");
+						output += "Warning US#6: Family ID "+famkey+" has wife who has divorce date before her marriage.";
 						output += eol;
 					}
 				}
@@ -532,8 +623,8 @@ public String birthBeforedeath()
 					Date husbDeath = (Date)hubbyMap.get("DEAT");
 					if(divDate.compareTo(husbDeath) == 1)
 					{
-						System.out.println("Warning: Family ID "+famkey+" has husband who has divorce date after his death.");
-						output += "Warning: Family ID "+famkey+" has husband who has divorce date after his death.";
+						System.out.println("Warning US#6: Family ID "+famkey+" has husband who has divorce date before his marriage.");
+						output += "Warning US#6: Family ID "+famkey+" has husband who has divorce date before his marriage.";
 						output += eol;
 					}
 				}
@@ -590,7 +681,7 @@ public String birthBeforedeath()
 					if(wifeDeath.compareTo(death_date) == 1)
 					{
 						System.out.println("Warning: Family ID "+famkey+" has wife who has death date beofer her birthdate.");
-						output += "Warning: Family ID "+famkey+" has wife who has death date beofer her birthdate.";
+						output += "Warning US#9: Family ID "+famkey+" has wife who has death date beofer her birthdate.";
 						output += eol;
 					}
 				}
@@ -605,7 +696,7 @@ public String birthBeforedeath()
 					if(husbDeath.compareTo(death_date) == 1)
 					{
 						System.out.println("Warning: Family ID "+famkey+" has husband who has death date beofore his birthdate.");
-						output += "Warning: Family ID "+famkey+" has husband who has death date beofore his birthdate.";
+						output += "Warning US#9: Family ID "+famkey+" has husband who has death date beofore his birthdate.";
 						output += eol;
 					}
 				}
@@ -619,12 +710,145 @@ public String birthBeforedeath()
 					if(childBirth.compareTo(death_date) == 1)
 					{
 						System.out.println("Warning: Family ID "+famkey+" has child who was born after the death of his/her parents.");
-						output += "Warning: Family ID "+famkey+" has child who was born after the death of his/her parents.";
+						output += "Warning US#9: Family ID "+famkey+" has child who was born after the death of his/her parents.";
 						output += eol;
 					}
 				}
 			}
         }
+		return output;
+	}
+	
+	//US#16: Ketu Shah
+	public String maleLastNames()
+	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
+		Set set = family.entrySet();
+		Iterator it = set.iterator();
+		while(it.hasNext())
+		{
+			
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String famkey = me.getKey().toString();
+			//System.out.println("Key is: "+key);
+			String chil = "";
+			String husb = "";
+			String husbLastName = "";
+			HashMap famValue = (HashMap)me.getValue();
+			
+			if(famValue.containsKey("HUSB"))
+			{
+				husb = (String)famValue.get("HUSB");
+				HashMap hubbyMap = (HashMap)individual.get(husb);
+				String name = (String)hubbyMap.get("NAME");
+				String[] names = name.split("/");
+				husbLastName = names[1];
+			}
+			
+			if(famValue.containsKey("CHIL"))
+			{
+				chil = (String)famValue.get("CHIL");
+			}
+			
+			
+			if(!chil.equals(""))
+			{
+				HashMap childMap = (HashMap)individual.get(chil);
+				String sex = (String)childMap.get("SEX");
+				if(sex.equals("M"))
+				{
+					String name = (String)childMap.get("NAME");
+					String[] names = name.split("/");
+					String chilLastName = names[1];
+					if(!husbLastName.equals(""))
+					{
+						if(!chilLastName.equals(husbLastName))
+						{
+							System.out.println("Warning: Family ID "+famkey+" has different surnames for male.");
+							output += "Warning US#16: Family ID "+famkey+" has different surnames for male.";
+							output += eol;
+						}
+					}
+				}
+			}
+		}
+		return output;
+	}
+	
+	
+	//US#17: Ketu Shah
+	public String noMarriageToDescendants()
+	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
+		Set set = family.entrySet();
+		Iterator it = set.iterator();
+		while(it.hasNext())
+		{
+			
+			Map.Entry me = (Map.Entry)it.next();
+			String famkey = me.getKey().toString();
+			//System.out.println("Key is: "+key);
+			String wife = "";
+			String husb = "";
+			HashMap famValue = (HashMap)me.getValue();
+			if(famValue.containsKey("HUSB"))
+			{
+				husb = (String)famValue.get("HUSB");
+			}
+			if(famValue.containsKey("WIFE"))
+			{
+				wife = (String)famValue.get("WIFE");
+			}
+			
+			Set innerset = family.entrySet();
+			Iterator innerit = innerset.iterator();
+			while(innerit.hasNext())
+			{
+				Map.Entry innerme = (Map.Entry)innerit.next();
+				String innerfamkey = innerme.getKey().toString();
+				HashMap innerfamValue = (HashMap)innerme.getValue();
+				String innerhusb = "";
+				if(innerfamValue.containsKey("HUSB"))
+				{
+					innerhusb = (String)innerfamValue.get("HUSB");
+				}
+				String innerwife = "";
+				if(innerfamValue.containsKey("WIFE"))
+				{
+					innerwife = (String)innerfamValue.get("WIFE");
+				}
+				if(!innerfamkey.equals(famkey) && innerhusb.equals(husb))
+				{
+					if(innerfamValue.containsKey("CHIL"))
+					{
+						String chil = (String)innerfamValue.get("CHIL");
+						if(chil.equals(wife))
+						{
+							System.out.println("Warning: Family ID "+famkey+" has marriage to descedants.");
+							output += "Warning US#17: Family ID "+famkey+" has marriage to descedants.";
+							output += eol;
+						}
+					}
+				}
+				
+				if(!innerfamkey.equals(famkey) && innerwife.equals(wife))
+				{
+					if(innerfamValue.containsKey("CHIL"))
+					{
+						String chil = (String)innerfamValue.get("CHIL");
+						if(chil.equals(husb))
+						{
+							System.out.println("Warning: Family ID "+famkey+" has marriage to descedants.");
+							output += "Warning US#17: Family ID "+famkey+" has marriage to descedants.";
+							output += eol;
+						}
+					}
+				}
+			}
+		}
 		return output;
 	}
 }
@@ -981,6 +1205,15 @@ class gedcomParserP04
 			
 			//US 09
 			output+=fds.birthafterdeathofparents();
+			
+			//US 16
+			output+=fds.maleLastNames();
+			
+			//US 17
+			output+=fds.noMarriageToDescendants();
+			
+			System.out.println(fds.printSummary());
+			output+=fds.printSummary();
 			
             bw.write(output);
 			bw.close();            
