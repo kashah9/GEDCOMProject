@@ -416,8 +416,8 @@ class FamDetails
 	}
 	
 
-/*Shweta_Chowdary_10406940*/
-public String birthBeforedeath()
+	/*Shweta_Chowdary_10406940*/
+	public String birthBeforedeath()
 	{
 		String output = "";
 		String eol = System.getProperty("line.separator");
@@ -480,6 +480,98 @@ public String birthBeforedeath()
 			}
 			
 			
+		}
+		return output;
+	}
+	
+	public String olderThan150()
+	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
+		Set set = individual.entrySet();
+		Iterator it = set.iterator();
+		
+		while(it.hasNext())
+		{
+			Map.Entry me = (Map.Entry)it.next();
+			String ID = me.getKey().toString();
+			HashMap indvalue = (HashMap)me.getValue();
+			Date currDate = new Date();
+			Date birthDate = new Date();
+			if(indvalue.containsKey("BIRT"))
+			{
+				birthDate = (Date)indvalue.get("BIRT");
+			}
+			long temp = currDate.getTime()-birthDate.getTime();
+			double age = Math.round(temp / 1000 / 60 / 60 / 24 / 365);
+			if(age>150)
+			{
+				System.out.println("Warning: Individual ID "+ID+" has age more than 150.");
+				output += "Warning: Individual ID "+ID+" has age more than 150." + eol;
+			}
+		}
+		return output;
+	}
+	
+	public String marriageBefore14()
+	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
+		Set set = family.entrySet();
+		Iterator it = set.iterator();
+		
+		while(it.hasNext())
+		{
+			Date mar_date = new Date();
+			
+			String wifey = "";
+			String hubby = "";
+			String child = "";
+			double wifeAge = 0;
+			double husbandAge = 0;
+			
+			
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String famkey = me.getKey().toString();			
+			HashMap famvalue = (HashMap)me.getValue();
+			
+			if(famvalue.containsKey("MARR"))
+			{
+				mar_date = (Date)famvalue.get("MARR");
+			}
+			else
+			{
+				return "";
+			}
+			if(famvalue.containsKey("WIFE"))
+			{
+				wifey = (String)famvalue.get("WIFE");
+				HashMap wifeyMap = (HashMap)individual.get(wifey);
+				Date wifeBirth = (Date)wifeyMap.get("BIRT");
+				long temp = mar_date.getTime()-wifeBirth.getTime();
+				wifeAge = Math.round(temp / 1000 / 60 / 60 / 24 / 365);
+				//System.out.println("WifeAge: "+wifeAge);
+			}
+			if(famvalue.containsKey("HUSB"))
+			{
+				hubby = (String)famvalue.get("HUSB");
+				HashMap hubbyMap = (HashMap)individual.get(wifey);
+				Date husbBirth = (Date)hubbyMap.get("BIRT");
+				long temp = mar_date.getTime()-husbBirth.getTime();
+				husbandAge = Math.round(temp / 1000 / 60 / 60 / 24 / 365);
+			}
+			
+			if(wifeAge<14)
+			{
+				System.out.println("Warning: Family ID "+famkey+" has wife who has marriage before 14.");
+				output += "Warning: Family ID "+famkey+" has wife who has marriage before 14." + eol;
+			}
+			if(husbandAge<14)
+			{
+				System.out.println("Warning: Family ID "+famkey+" has husband who has marriage before 14.");
+				output += "Warning: Family ID "+famkey+" has husband who has marriage before 14." + eol;
+			}
 		}
 		return output;
 	}
@@ -718,6 +810,145 @@ public String birthBeforedeath()
         }
 		return output;
 	}
+        /*#US 21  Archita Zaveri*/
+	
+	public String correctGenger()
+	{
+		Set set = family.entrySet();
+		Iterator it = set.iterator();
+		String output = "";
+		String eol = System.getProperty("line.separator");
+		while(it.hasNext())
+		{
+			String wifey = "";
+			String hubby = "";
+            
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String famkey = me.getKey().toString();
+			//System.out.println("Key is: "+key);
+			
+			HashMap famvalue = (HashMap)me.getValue();
+			
+			if(famvalue.containsKey("WIFE"))
+			{
+				wifey = (String)famvalue.get("WIFE");
+			}
+			if(famvalue.containsKey("HUSB"))
+			{
+				hubby = (String)famvalue.get("HUSB");
+			}
+			
+			if(wifey != "")
+			{
+				HashMap wifeyMap = (HashMap)individual.get(wifey);
+				if(wifeyMap.containsKey("SEX"))
+				{
+					String wifeGender = (String)wifeyMap.get("SEX");
+					
+					if(!wifeGender.equals("F"))
+					{
+						System.out.println("Warning: Family ID "+famkey+" has wife who is not Female.");
+						output += "Warning: Family ID "+famkey+" has wife who is not Female";
+						output += eol;
+					}
+				}
+			}
+			
+			if(hubby != "")
+			{
+				HashMap wifeyMap = (HashMap)individual.get(hubby);
+				if(wifeyMap.containsKey("SEX"))
+				{
+					String wifeGender = (String)wifeyMap.get("SEX");
+					
+					if(!wifeGender.equals("M"))
+					{
+						System.out.println("Warning: Family ID "+famkey+" has husband who is not Male.");
+						output += "Warning: Family ID "+famkey+" has husband who is not Male";
+						output += eol;
+					}
+				}
+			}
+		}
+		return output;
+	}
+	/*#US 12 Archita Zaveri*/
+	public String tooOldParents()
+	{
+		Set set = family.entrySet();
+		Iterator it = set.iterator();
+		String output = "";
+		String eol = System.getProperty("line.separator");
+		while(it.hasNext())
+		{
+			Date death_date = new Date();
+			
+			String wifey = "";
+			String hubby = "";
+            String child = "";
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String famkey = me.getKey().toString();
+			//System.out.println("Key is: "+key);
+			
+			HashMap famvalue = (HashMap)me.getValue();
+			
+			if(famvalue.containsKey("WIFE"))
+			{
+				wifey = (String)famvalue.get("WIFE");
+			}
+			if(famvalue.containsKey("HUSB"))
+			{
+				hubby = (String)famvalue.get("HUSB");
+			}	
+			if(famvalue.containsKey("CHIL"))
+			{
+				child = (String)famvalue.get("CHIL");
+			}
+			
+			if(child!="")
+			{
+				HashMap childMap = (HashMap)individual.get(child);
+				Date childBirth = (Date)childMap.get("BIRT");
+				
+				if(wifey != "")
+				{
+					HashMap wifeyMap = (HashMap)individual.get(wifey);
+					if(wifeyMap.containsKey("BIRT"))
+					{
+						Date wifeBirth = (Date)wifeyMap.get("BIRT");
+						long temp = childBirth.getTime()-wifeBirth.getTime();
+						double age = Math.round(temp / 1000 / 60 / 60 / 24 / 365);
+						if(age>60)
+						{
+							System.out.println("Warning: Family ID "+famkey+" has too old mother.");
+							output += "Warning: Family ID "+famkey+" has too old mother.";
+							output += eol;
+						}
+					}
+				}
+				
+				if(hubby != "")
+				{
+					HashMap hubbyMap = (HashMap)individual.get(wifey);
+					if(hubbyMap.containsKey("BIRT"))
+					{
+						Date husbBirth = (Date)hubbyMap.get("BIRT");
+						long temp = childBirth.getTime()-husbBirth.getTime();
+						double age = Math.round(temp / 1000 / 60 / 60 / 24 / 365);
+						if(age>80)
+						{
+							System.out.println("Warning: Family ID "+famkey+" has too old father.");
+							output += "Warning US#9: Family ID "+famkey+" has too old father.";
+							output += eol;
+						}
+					}
+				}
+			}
+		}
+		return output;
+	}
 	
 	//US#16: Ketu Shah
 	public String maleLastNames()
@@ -866,7 +1097,7 @@ class gedcomParserP04
 				
 		try
 		{
-			File fl = new File("C:\\Users\\Ketu\\Desktop\\CS555 Agile\\Week 5\\output.txt");
+			File fl = new File("E:\\Stevens\\CS555 Agile\\\\Week 5\\output.txt");
 			if (!fl.exists()) 
 			{
 				fl.createNewFile();
@@ -877,7 +1108,7 @@ class gedcomParserP04
 			
 			String line;
 			List lineList = new ArrayList();
-			br = new BufferedReader(new FileReader("C:\\Users\\Ketu\\Desktop\\CS555 Agile\\Week 4\\familyTreeWithMistakes.ged"));
+			br = new BufferedReader(new FileReader("E:\\Stevens\\CS555 Agile\\Week 4\\familyTreeWithMistakes.ged"));
 			while((line = br.readLine()) != null)
 			{
 				lineList.add(line);
@@ -1211,6 +1442,14 @@ class gedcomParserP04
 			
 			//US 17
 			output+=fds.noMarriageToDescendants();
+			
+			output+=fds.marriageBefore14();
+			
+			output+=fds.olderThan150();
+			
+			output+=fds.tooOldParents();
+			
+			output+=fds.correctGenger();
 			
 			System.out.println(fds.printSummary());
 			output+=fds.printSummary();
