@@ -810,7 +810,6 @@ class FamDetails
         }
 		return output;
 	}
-        /*#US 21  Archita Zaveri*/
 	
 	public String correctGenger()
 	{
@@ -873,7 +872,7 @@ class FamDetails
 		}
 		return output;
 	}
-	/*#US 12 Archita Zaveri*/
+	
 	public String tooOldParents()
 	{
 		Set set = family.entrySet();
@@ -909,39 +908,87 @@ class FamDetails
 			
 			if(child!="")
 			{
-				HashMap childMap = (HashMap)individual.get(child);
-				Date childBirth = (Date)childMap.get("BIRT");
-				
-				if(wifey != "")
+				if(!child.contains("-"))
 				{
-					HashMap wifeyMap = (HashMap)individual.get(wifey);
-					if(wifeyMap.containsKey("BIRT"))
+					HashMap childMap = (HashMap)individual.get(child);
+					Date childBirth = (Date)childMap.get("BIRT");
+					
+					if(wifey != "")
 					{
-						Date wifeBirth = (Date)wifeyMap.get("BIRT");
-						long temp = childBirth.getTime()-wifeBirth.getTime();
-						double age = Math.round(temp / 1000 / 60 / 60 / 24 / 365);
-						if(age>60)
+						HashMap wifeyMap = (HashMap)individual.get(wifey);
+						if(wifeyMap.containsKey("BIRT"))
 						{
-							System.out.println("Warning: Family ID "+famkey+" has too old mother.");
-							output += "Warning: Family ID "+famkey+" has too old mother.";
-							output += eol;
+							Date wifeBirth = (Date)wifeyMap.get("BIRT");
+							long temp = childBirth.getTime()-wifeBirth.getTime();
+							double age = Math.round(temp / 1000 / 60 / 60 / 24 / 365);
+							if(age>60)
+							{
+								System.out.println("Warning: Family ID "+famkey+" has too old mother.");
+								output += "Warning: Family ID "+famkey+" has too old mother.";
+								output += eol;
+							}
+						}
+					}
+				
+				
+					if(hubby != "")
+					{
+						HashMap hubbyMap = (HashMap)individual.get(wifey);
+						if(hubbyMap.containsKey("BIRT"))
+						{
+							Date husbBirth = (Date)hubbyMap.get("BIRT");
+							long temp = childBirth.getTime()-husbBirth.getTime();
+							double age = Math.round(temp / 1000 / 60 / 60 / 24 / 365);
+							if(age>80)
+							{
+								System.out.println("Warning: Family ID "+famkey+" has too old father.");
+								output += "Warning US#9: Family ID "+famkey+" has too old father.";
+								output += eol;
+							}
 						}
 					}
 				}
-				
-				if(hubby != "")
+				else
 				{
-					HashMap hubbyMap = (HashMap)individual.get(wifey);
-					if(hubbyMap.containsKey("BIRT"))
+					String[] children = child.split("-");
+					for(int i=0;i<children.length;i++)
 					{
-						Date husbBirth = (Date)hubbyMap.get("BIRT");
-						long temp = childBirth.getTime()-husbBirth.getTime();
-						double age = Math.round(temp / 1000 / 60 / 60 / 24 / 365);
-						if(age>80)
+						HashMap childMap = (HashMap)individual.get(children[i]);
+						Date childBirth = (Date)childMap.get("BIRT");
+						
+						if(wifey != "")
 						{
-							System.out.println("Warning: Family ID "+famkey+" has too old father.");
-							output += "Warning US#9: Family ID "+famkey+" has too old father.";
-							output += eol;
+							HashMap wifeyMap = (HashMap)individual.get(wifey);
+							if(wifeyMap.containsKey("BIRT"))
+							{
+								Date wifeBirth = (Date)wifeyMap.get("BIRT");
+								long temp = childBirth.getTime()-wifeBirth.getTime();
+								double age = Math.round(temp / 1000 / 60 / 60 / 24 / 365);
+								if(age>60)
+								{
+									System.out.println("Warning: Family ID "+famkey+" has too old mother.");
+									output += "Warning: Family ID "+famkey+" has too old mother.";
+									output += eol;
+								}
+							}
+						}
+					
+					
+						if(hubby != "")
+						{
+							HashMap hubbyMap = (HashMap)individual.get(wifey);
+							if(hubbyMap.containsKey("BIRT"))
+							{
+								Date husbBirth = (Date)hubbyMap.get("BIRT");
+								long temp = childBirth.getTime()-husbBirth.getTime();
+								double age = Math.round(temp / 1000 / 60 / 60 / 24 / 365);
+								if(age>80)
+								{
+									System.out.println("Warning: Family ID "+famkey+" has too old father.");
+									output += "Warning US#9: Family ID "+famkey+" has too old father.";
+									output += eol;
+								}
+							}
 						}
 					}
 				}
@@ -986,23 +1033,53 @@ class FamDetails
 			
 			if(!chil.equals(""))
 			{
-				HashMap childMap = (HashMap)individual.get(chil);
-				String sex = (String)childMap.get("SEX");
-				if(sex.equals("M"))
+				if(!chil.contains("-"))
 				{
-					String name = (String)childMap.get("NAME");
-					String[] names = name.split("/");
-					String chilLastName = names[1];
-					if(!husbLastName.equals(""))
+					HashMap childMap = (HashMap)individual.get(chil);
+					String sex = (String)childMap.get("SEX");
+					if(sex.equals("M"))
 					{
-						if(!chilLastName.equals(husbLastName))
+						String name = (String)childMap.get("NAME");
+						String[] names = name.split("/");
+						String chilLastName = names[1];
+						if(!husbLastName.equals(""))
 						{
-							System.out.println("Warning: Family ID "+famkey+" has different surnames for male.");
-							output += "Warning US#16: Family ID "+famkey+" has different surnames for male.";
-							output += eol;
+							if(!chilLastName.equals(husbLastName))
+							{
+								System.out.println("Warning US#16: Family ID "+famkey+" has different surnames for male.");
+								output += "Warning US#16: Family ID "+famkey+" has different surnames for male.";
+								output += eol;
+							}
 						}
 					}
 				}
+				else
+				{
+					String[] children = chil.split("-");
+					//System.out.println(children.length);
+					for(int i =0; i<children.length;i++)
+					{
+						//System.out.println(children[i]);
+						HashMap childMap = (HashMap)individual.get(children[i]);
+						String sex = (String)childMap.get("SEX");
+						if(sex.equals("M"))
+						{
+							String name = (String)childMap.get("NAME");
+							String[] names = name.split("/");
+							String chilLastName = names[1];
+							if(!husbLastName.equals(""))
+							{
+								if(!chilLastName.equals(husbLastName))
+								{
+									System.out.println("Warning: Family ID "+famkey+" has different surnames for male.");
+									output += "Warning US#16: Family ID "+famkey+" has different surnames for male.";
+									output += eol;
+								}
+							}
+						}
+					}
+				}
+				
 			}
 		}
 		return output;
@@ -1058,7 +1135,7 @@ class FamDetails
 						String chil = (String)innerfamValue.get("CHIL");
 						if(chil.equals(wife))
 						{
-							System.out.println("Warning: Family ID "+famkey+" has marriage to descedants.");
+							System.out.println("Warning US#17: Family ID "+famkey+" has marriage to descedants.");
 							output += "Warning US#17: Family ID "+famkey+" has marriage to descedants.";
 							output += eol;
 						}
@@ -1076,6 +1153,90 @@ class FamDetails
 							output += "Warning US#17: Family ID "+famkey+" has marriage to descedants.";
 							output += eol;
 						}
+					}
+				}
+			}
+		}
+		return output;
+	}
+	
+	//Ketu Shah: US29(Sprint 3)
+	public String listDeceased()
+	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
+		Set set = individual.entrySet();
+		Iterator it = set.iterator();
+		
+		output = "US#29- List of Deceased Individuals:"+eol;
+		
+		while(it.hasNext())
+		{
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String indId = me.getKey().toString();			
+			HashMap indVal = (HashMap)me.getValue();
+			if(indVal.containsKey("DEAT"))
+			{
+				String name = (String)indVal.get("NAME");
+				String[] names = name.split("/");
+				output+=indId+":"+names[0]+names[1]+eol;
+			}
+		}
+		System.out.println(output);
+		return output;
+	}
+	
+	//Ketu Shah:US28
+	public String sortSiblingsByAge()
+	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
+		Set set = family.entrySet();
+		Iterator it = set.iterator();
+		
+		output = "List of Deceased Individuals:"+eol;
+		
+		while(it.hasNext())
+		{
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String famKey = me.getKey().toString();			
+			HashMap famValue = (HashMap)me.getValue();
+			String chil = "";
+			
+			if(famValue.containsKey("CHIL"))
+			{
+				chil = (String)famValue.get("CHIL");
+				if(chil.contains("-"))
+				{
+					//System.out.println(chil);
+					String[] children = chil.split("-");
+					ArrayList<String> chilList = new ArrayList<String>();
+					for(int j=0;j<children.length;j++)
+					{
+						HashMap indvalue = (HashMap)individual.get(children[j]);
+						Date currDate = new Date();
+						Date birthDate = new Date();
+						if(indvalue.containsKey("BIRT"))
+						{
+							birthDate = (Date)indvalue.get("BIRT");
+						}
+						long temp = currDate.getTime()-birthDate.getTime();
+						double age = temp / 1000 / 60 / 60 / 24 / 365;
+						
+						String name = (String)indvalue.get("NAME");
+						
+						String[] names = name.split("/");
+						chilList.add(age+":"+names[0]+" "+names[1]);
+					}
+					Collections.sort(chilList);
+					System.out.println("US#28- Sorted Siblings by Age for Family "+famKey+":");
+					output+="US#28- Sorted Siblings by Age for Family "+famKey+":"+eol;
+					for(String ch:chilList)
+					{
+						String[] temp = ch.split(":");
+						System.out.println("Name:"+temp[1]+" Age:"+temp[0]);
 					}
 				}
 			}
@@ -1108,7 +1269,7 @@ class gedcomParserP04
 			
 			String line;
 			List lineList = new ArrayList();
-			br = new BufferedReader(new FileReader("E:\\Stevens\\CS555 Agile\\Week 4\\familyTreeWithMistakes.ged"));
+			br = new BufferedReader(new FileReader("E:\\Stevens\\CS555 Agile\\Week 4\\familyTreeWithMistakes1.ged"));
 			while((line = br.readLine()) != null)
 			{
 				lineList.add(line);
@@ -1188,7 +1349,17 @@ class gedcomParserP04
 							if(strdel[0].equals("1"))
 							{
 								//System.out.println(strdel[1]);
-								desc.put("CHIL",strdel[2]);
+								//String chil = (String)desc.get("CHIL");
+								if(!desc.containsKey("CHIL"))
+								{
+									desc.put("CHIL",strdel[2]);
+								}
+								else
+								{
+									String chil = (String)desc.get("CHIL");
+									chil = chil+"-"+strdel[2];
+									desc.put("CHIL",chil);
+								}
 							}
 							else
 							{
@@ -1435,7 +1606,7 @@ class gedcomParserP04
 			output+=fds.divorceBeforeDeath();
 			
 			//US 09
-			output+=fds.birthafterdeathofparents();
+			//output+=fds.birthafterdeathofparents();
 			
 			//US 16
 			output+=fds.maleLastNames();
@@ -1450,6 +1621,10 @@ class gedcomParserP04
 			output+=fds.tooOldParents();
 			
 			output+=fds.correctGenger();
+			
+			output+=fds.listDeceased();
+			
+			output+=fds.sortSiblingsByAge();
 			
 			System.out.println(fds.printSummary());
 			output+=fds.printSummary();
