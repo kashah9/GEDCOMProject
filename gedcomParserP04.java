@@ -334,8 +334,8 @@ class FamDetails
 				Date divDate = (Date)famvalue.get("DIV");
 				if(marrDate.compareTo(divDate)==1)
 				{
-					System.out.println("Warning: Family ID "+famkey+" has marriage date "+marrDate+" after divorce date.");
-					output += "Warning: Family ID "+famkey+" has marriage date "+marrDate+" after divorce date.";
+					System.out.println("Warning US#4: Family ID "+famkey+" has marriage date "+marrDate+" after divorce date.");
+					output += "Warning US#4: Family ID "+famkey+" has marriage date "+marrDate+" after divorce date.";
 					output += eol;
 				}
 				//System.out.println("MarrDate is: "+marrDate);
@@ -390,8 +390,8 @@ class FamDetails
 					//System.out.println("WifeDate is: "+wifeBirth);
 					if(marrDate.compareTo(wifeDeath) == 1)
 					{
-						System.out.println("Warning: Family ID "+famkey+" has wife who has marriage date after her death.");
-						output += "Warning: Family ID "+famkey+" has wife who has marriage date after her death.";
+						System.out.println("Warning US#5: Family ID "+famkey+" has wife who has marriage date after her death.");
+						output += "Warning US#5: Family ID "+famkey+" has wife who has marriage date after her death.";
 						output += eol;
 					}
 				}
@@ -405,8 +405,8 @@ class FamDetails
 					Date husbDeath = (Date)hubbyMap.get("DEAT");
 					if(marrDate.compareTo(husbDeath) == 1)
 					{
-						System.out.println("Warning: Family ID "+famkey+" has husband who has marriage date after his death.");
-						output += "Warning: Family ID "+famkey+" has wife who has marriage date after her death.";
+						System.out.println("Warning US#5: Family ID "+famkey+" has husband who has marriage date after his death.");
+						output += "Warning US#5: Family ID "+famkey+" has wife who has marriage date after her death.";
 						output += eol;
 					}
 				}
@@ -416,7 +416,7 @@ class FamDetails
 	}
 	
 
-	/*Shweta_Chowdary_10406940*/
+	/*Sweta_Chowdary_10406940*/
 	public String birthBeforedeath()
 	{
 		String output = "";
@@ -461,8 +461,8 @@ class FamDetails
 				//System.out.println("WifeDate is: "+wifeBirth);
 				if(wifeBirth.compareTo(death_date) == 1)
 				{
-					System.out.println("Warning: Family ID "+famkey+" has wife who has death date beofer her birthdate.");
-					output += "Warning: Family ID "+famkey+" has wife who has death date beofer her birthdate.";
+					System.out.println("Warning US#3: Family ID "+famkey+" has wife who has death date beofer her birthdate.");
+					output += "Warning US#3: Family ID "+famkey+" has wife who has death date beofer her birthdate.";
 					output += eol;
 				}
 			}
@@ -473,8 +473,8 @@ class FamDetails
 				Date husbBirth = (Date)hubbyMap.get("BIRT");
 				if(husbBirth.compareTo(death_date) == 1)
 				{
-					System.out.println("Warning: Family ID "+famkey+" has husband who has death date beofore his birthdate.");
-					output += "Warning: Family ID "+famkey+" has husband who has death date beofore his birthdate.";
+					System.out.println("Warning US#3: Family ID "+famkey+" has husband who has death date beofore his birthdate.");
+					output += "Warning US#3: Family ID "+famkey+" has husband who has death date beofore his birthdate.";
 					output += eol;
 				}
 			}
@@ -483,6 +483,7 @@ class FamDetails
 		}
 		return output;
 	}
+
 	
 	public String olderThan150()
 	{
@@ -506,8 +507,8 @@ class FamDetails
 			double age = Math.round(temp / 1000 / 60 / 60 / 24 / 365);
 			if(age>150)
 			{
-				System.out.println("Warning: Individual ID "+ID+" has age more than 150.");
-				output += "Warning: Individual ID "+ID+" has age more than 150." + eol;
+				System.out.println("Warning US#7: Individual ID "+ID+" has age more than 150.");
+				output += "Warning US#7: Individual ID "+ID+" has age more than 150." + eol;
 			}
 		}
 		return output;
@@ -564,13 +565,13 @@ class FamDetails
 			
 			if(wifeAge<14)
 			{
-				System.out.println("Warning: Family ID "+famkey+" has wife who has marriage before 14.");
-				output += "Warning: Family ID "+famkey+" has wife who has marriage before 14." + eol;
+				System.out.println("Warning US#10: Family ID "+famkey+" has wife who has marriage before 14.");
+				output += "Warning US#10: Family ID "+famkey+" has wife who has marriage before 14." + eol;
 			}
 			if(husbandAge<14)
 			{
-				System.out.println("Warning: Family ID "+famkey+" has husband who has marriage before 14.");
-				output += "Warning: Family ID "+famkey+" has husband who has marriage before 14." + eol;
+				System.out.println("Warning US#10: Family ID "+famkey+" has husband who has marriage before 14.");
+				output += "Warning US#10: Family ID "+famkey+" has husband who has marriage before 14." + eol;
 			}
 		}
 		return output;
@@ -624,8 +625,8 @@ class FamDetails
 				//System.out.println("WifeDate is: "+wifeBirth);
 				if(wifeBirth.compareTo(mar_date) == 1)
 				{
-					System.out.println("Warning: Family ID "+famkey+" has wife who has death date beofer her birthdate.");
-					output += "Warning: Family ID "+famkey+" has wife who has death date beofer her birthdate." + eol;
+					System.out.println("Warning US#8: Family ID "+famkey+" has wife who has death date beofer her birthdate.");
+					output += "Warning US#8: Family ID "+famkey+" has wife who has death date beofer her birthdate." + eol;
 				}
 			}
 			
@@ -635,8 +636,8 @@ class FamDetails
 				Date husbBirth = (Date)hubbyMap.get("BIRT");
 				if(husbBirth.compareTo(mar_date) == 1)
 				{
-					System.out.println("Warning: Family ID "+famkey+" has husband who has death date beofore his birthdate.");
-					output += "Warning: Family ID "+famkey+" has husband who has death date beofore his birthdate.";
+					System.out.println("Warning US#8: Family ID "+famkey+" has husband who has death date beofore his birthdate.");
+					output += "Warning US#8: Family ID "+famkey+" has husband who has death date beofore his birthdate.";
 					output += eol;
 				}
 			}
@@ -646,8 +647,8 @@ class FamDetails
 				Date childBirth = (Date)hubbyMap.get("BIRT");
 				if(childBirth.compareTo(mar_date) == 1)
 				{
-					System.out.println("Warning: Family ID "+famkey+" has child who was born before the death of his/her parents.");
-					output += "Warning: Family ID "+famkey+" has child who was born before the death of his/her parents.";
+					System.out.println("Warning US#8: Family ID "+famkey+" has child who was born before the death of his/her parents.");
+					output += "Warning US#8: Family ID "+famkey+" has child who was born before the death of his/her parents.";
 					output += eol;
 				}
 			}
@@ -772,7 +773,7 @@ class FamDetails
 					//System.out.println("wifeDeath is: "+wifeDeath);
 					if(wifeDeath.compareTo(death_date) == 1)
 					{
-						System.out.println("Warning: Family ID "+famkey+" has wife who has death date beofer her birthdate.");
+						System.out.println("Warning US#9: Family ID "+famkey+" has wife who has death date beofer her birthdate.");
 						output += "Warning US#9: Family ID "+famkey+" has wife who has death date beofer her birthdate.";
 						output += eol;
 					}
@@ -787,7 +788,7 @@ class FamDetails
 					Date husbDeath = (Date)hubbyMap.get("DEAT");
 					if(husbDeath.compareTo(death_date) == 1)
 					{
-						System.out.println("Warning: Family ID "+famkey+" has husband who has death date beofore his birthdate.");
+						System.out.println("Warning US#9: Family ID "+famkey+" has husband who has death date beofore his birthdate.");
 						output += "Warning US#9: Family ID "+famkey+" has husband who has death date beofore his birthdate.";
 						output += eol;
 					}
@@ -801,7 +802,7 @@ class FamDetails
 					Date childBirth = (Date)hubbyMap.get("DEAT");
 					if(childBirth.compareTo(death_date) == 1)
 					{
-						System.out.println("Warning: Family ID "+famkey+" has child who was born after the death of his/her parents.");
+						System.out.println("Warning US#9: Family ID "+famkey+" has child who was born after the death of his/her parents.");
 						output += "Warning US#9: Family ID "+famkey+" has child who was born after the death of his/her parents.";
 						output += eol;
 					}
@@ -847,8 +848,8 @@ class FamDetails
 					
 					if(!wifeGender.equals("F"))
 					{
-						System.out.println("Warning: Family ID "+famkey+" has wife who is not Female.");
-						output += "Warning: Family ID "+famkey+" has wife who is not Female";
+						System.out.println("Warning US#21: Family ID "+famkey+" has wife who is not Female.");
+						output += "Warning US#21: Family ID "+famkey+" has wife who is not Female";
 						output += eol;
 					}
 				}
@@ -863,8 +864,8 @@ class FamDetails
 					
 					if(!wifeGender.equals("M"))
 					{
-						System.out.println("Warning: Family ID "+famkey+" has husband who is not Male.");
-						output += "Warning: Family ID "+famkey+" has husband who is not Male";
+						System.out.println("Warning US#21: Family ID "+famkey+" has husband who is not Male.");
+						output += "Warning US#21: Family ID "+famkey+" has husband who is not Male";
 						output += eol;
 					}
 				}
@@ -923,8 +924,8 @@ class FamDetails
 							double age = Math.round(temp / 1000 / 60 / 60 / 24 / 365);
 							if(age>60)
 							{
-								System.out.println("Warning: Family ID "+famkey+" has too old mother.");
-								output += "Warning: Family ID "+famkey+" has too old mother.";
+								System.out.println("Warning US#12: Family ID "+famkey+" has too old mother.");
+								output += "Warning US#12: Family ID "+famkey+" has too old mother.";
 								output += eol;
 							}
 						}
@@ -941,8 +942,8 @@ class FamDetails
 							double age = Math.round(temp / 1000 / 60 / 60 / 24 / 365);
 							if(age>80)
 							{
-								System.out.println("Warning: Family ID "+famkey+" has too old father.");
-								output += "Warning US#9: Family ID "+famkey+" has too old father.";
+								System.out.println("Warning US#12: Family ID "+famkey+" has too old father.");
+								output += "Warning US#12: Family ID "+famkey+" has too old father.";
 								output += eol;
 							}
 						}
@@ -966,8 +967,8 @@ class FamDetails
 								double age = Math.round(temp / 1000 / 60 / 60 / 24 / 365);
 								if(age>60)
 								{
-									System.out.println("Warning: Family ID "+famkey+" has too old mother.");
-									output += "Warning: Family ID "+famkey+" has too old mother.";
+									System.out.println("Warning US#12: Family ID "+famkey+" has too old mother.");
+									output += "Warning US#12: Family ID "+famkey+" has too old mother.";
 									output += eol;
 								}
 							}
@@ -984,8 +985,8 @@ class FamDetails
 								double age = Math.round(temp / 1000 / 60 / 60 / 24 / 365);
 								if(age>80)
 								{
-									System.out.println("Warning: Family ID "+famkey+" has too old father.");
-									output += "Warning US#9: Family ID "+famkey+" has too old father.";
+									System.out.println("Warning US#12:Family ID "+famkey+" has too old father.");
+									output += "Warning US#12: Family ID "+famkey+" has too old father.";
 									output += eol;
 								}
 							}
@@ -1071,7 +1072,7 @@ class FamDetails
 							{
 								if(!chilLastName.equals(husbLastName))
 								{
-									System.out.println("Warning: Family ID "+famkey+" has different surnames for male.");
+									System.out.println("Warning US#16: Family ID "+famkey+" has different surnames for male.");
 									output += "Warning US#16: Family ID "+famkey+" has different surnames for male.";
 									output += eol;
 								}
@@ -1149,7 +1150,7 @@ class FamDetails
 						String chil = (String)innerfamValue.get("CHIL");
 						if(chil.equals(husb))
 						{
-							System.out.println("Warning: Family ID "+famkey+" has marriage to descedants.");
+							System.out.println("Warning US#17: Family ID "+famkey+" has marriage to descedants.");
 							output += "Warning US#17: Family ID "+famkey+" has marriage to descedants.";
 							output += eol;
 						}
@@ -1195,7 +1196,7 @@ class FamDetails
 		Set set = family.entrySet();
 		Iterator it = set.iterator();
 		
-		output = "List of Deceased Individuals:"+eol;
+		output = "US #28 - List of Deceased Individuals:"+eol;
 		
 		while(it.hasNext())
 		{
@@ -1243,6 +1244,173 @@ class FamDetails
 		}
 		return output;
 	}
+	
+	/*US #23 Sweta chowdary Finding Unique Birthdates and Name*/
+	public String uniqueBirthdatesandName()
+	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
+		Set set = individual.entrySet();
+		Iterator it = set.iterator();
+		while(it.hasNext())
+		{
+			
+			Map.Entry me = (Map.Entry)it.next();
+			String famkey = me.getKey().toString();
+            Date birDate = new Date();
+			
+			String nm = "";
+			
+			HashMap famvalue = (HashMap)me.getValue();
+			if(famvalue.containsKey("BIRT"))
+			{
+				birDate = (Date)famvalue.get("BIRT");
+			}
+			
+            if(famvalue.containsKey("NAME"))
+			{
+				nm = (String)famvalue.get("NAME");	
+			}
+			
+			//HashMap ind1= (HashMap)individual.get(nm);
+			//HashMap ind2= (HashMap)individual.get(nm);
+			
+			
+			Set innerset = individual.entrySet();
+			Iterator innerit = innerset.iterator();
+			while(innerit.hasNext())
+			{
+				Map.Entry innerme = (Map.Entry)innerit.next();
+				String indId = innerme.getKey().toString();
+								
+				HashMap indVal = (HashMap)innerme.getValue();
+				if(!famkey.equals(indId))
+				{
+					Date bd = (Date)indVal.get("BIRT");
+					String n = (String)indVal.get("NAME");
+					if(bd.compareTo(birDate)==0 && n.equals(nm))
+					{
+						System.out.println("Warning US#23:Same name .");
+						output += "Warning US#23: Individuals have the same name.";
+						output += eol;
+					}
+				}
+			}
+        }
+		return output;
+	}
+	
+	public String uniqueFirstName()
+	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
+		Set set = family.entrySet();
+		Iterator it = set.iterator();
+		while(it.hasNext())
+		{
+			
+			Map.Entry me = (Map.Entry)it.next();
+			String famkey = me.getKey().toString();
+			HashMap famvalue = (HashMap)me.getValue();
+			String husb = "";
+			String wife = "";
+			String chil = "";
+			if(famvalue.containsKey("HUSB"))
+			{
+				husb = (String)famvalue.get("HUSB");
+			}
+			if(famvalue.containsKey("WIFE"))
+			{
+				wife = (String)famvalue.get("WIFE");
+			}
+			if(famvalue.containsKey("CHIL"))
+			{
+				chil = (String)famvalue.get("CHIL");
+			}
+			
+			ArrayList<String> names = new ArrayList<String>();
+			if(husb!="")
+			{
+				HashMap tempMap = (HashMap)individual.get(husb);
+				String name = (String)tempMap.get("NAME");
+				String[] temp = name.split("/");
+				String husbName = temp[0];
+				if(names.contains(husbName))
+				{
+					System.out.println("Warning US#25:Same First Name in Family "+famkey);
+					output += "Warning US#25: Individuals have the Same First Name in Family "+famkey;
+					output += eol;
+				}
+				else
+				{
+					names.add(husbName);
+				}
+			}
+			if(wife!="")
+			{
+				HashMap tempMap = (HashMap)individual.get(wife);
+				String name = (String)tempMap.get("NAME");
+				String[] temp = name.split("/");
+				String wifeName = temp[0];
+				if(names.contains(wifeName))
+				{
+					System.out.println("Warning US#25:Same First Name in Family "+famkey);
+					output += "Warning US#25: Individuals have the Same First Name in Family "+famkey;
+					output += eol;
+				}
+				else
+				{
+					names.add(wifeName);
+				}
+			}
+			if(chil!="")
+			{
+				if(chil.contains("-"))
+				{
+					String[] children = chil.split("-");
+					for(String c:children)
+					{
+						HashMap tempMap = (HashMap)individual.get(c);
+						String name = (String)tempMap.get("NAME");
+						String[] temp = name.split("/");
+						String cName = temp[0];
+						if(names.contains(cName))
+						{
+							System.out.println("Warning US#25:Same First Name in Family "+famkey);
+							output += "Warning US#25: Individuals have the Same First Name in Family "+famkey;
+							output += eol;
+						}
+						else
+						{
+							names.add(cName);
+						}
+					}
+				}
+				else
+				{
+					HashMap tempMap = (HashMap)individual.get(chil);
+					String name = (String)tempMap.get("NAME");
+					String[] temp = name.split("/");
+					String cName = temp[0];
+					if(names.contains(cName))
+					{
+						System.out.println("Warning US#25:Same First Name in Family "+famkey);
+						output += "Warning US#25: Individuals have the Same First Name in Family "+famkey;
+						output += eol;
+					}
+					else
+					{
+						names.add(cName);
+					}
+				}
+			}
+		}
+		return output;
+	}
+	
+	
+	
+	
 }
 
 class gedcomParserP04
