@@ -218,6 +218,96 @@
 1 BIRT
 2 DATE 5 OCT 1971
 1 FAMC @F9@
+0 @I39@ INDI
+1 NAME Tom /Shneider/
+2 GIVN Tom
+2 SURN Shneider
+2 _MARNM Shneider
+1 SEX M
+1 BIRT
+2 DATE 6 APR 2016
+1 FAMC @F7@
+0 @I38@ INDI
+1 NAME Emma /Shneider/
+2 GIVN Emma
+2 SURN Shneider
+2 _MARNM Shneider
+1 SEX F
+1 BIRT
+2 DATE 6 APR 2016
+1 FAMC @F7@
+0 @I37@ INDI
+1 NAME Kristen /Shneider/
+2 GIVN Kristen
+2 SURN Shneider
+2 _MARNM Shneider
+1 SEX F
+1 BIRT
+2 DATE 6 APR 2016
+1 FAMC @F7@
+0 @I36@ INDI
+1 NAME Alfred /Shneider/
+2 GIVN Alfred
+2 SURN Shneider
+2 _MARNM Shneider
+1 SEX M
+1 BIRT
+2 DATE 6 APR 2016
+1 FAMC @F7@
+0 @I35@ INDI
+1 NAME Edward /Shneider/
+2 GIVN Edward
+2 SURN Shneider
+2 _MARNM Shneider
+1 SEX M
+1 BIRT
+2 DATE 6 APR 2016
+1 FAMC @F7@
+0 @I34@ INDI
+1 NAME Susan /Shneider/
+2 GIVN Susan
+2 SURN Shneider
+2 _MARNM Shneider
+1 SEX F
+1 BIRT
+2 DATE 6 APR 2016
+1 FAMC @F7@
+0 @I33@ INDI
+1 NAME Laurel /Shneider/
+2 GIVN Laurel
+2 SURN Shneider
+2 _MARNM Shneider
+1 SEX F
+1 BIRT
+2 DATE 6 APR 2016
+1 FAMC @F7@
+0 @I32@ INDI
+1 NAME Lori /Shneider/
+2 GIVN Lori
+2 SURN Shneider
+2 _MARNM Shneider
+1 SEX F
+1 BIRT
+2 DATE 6 APR 2016
+1 FAMC @F7@
+0 @I31@ INDI
+1 NAME Dale /Shneider/
+2 GIVN Dale
+2 SURN Shneider
+2 _MARNM Shneider
+1 SEX M
+1 BIRT
+2 DATE 6 APR 2016
+1 FAMC @F7@
+0 @I30@ INDI
+1 NAME Alex /Shneider/
+2 GIVN Alex
+2 SURN Shneider
+2 _MARNM Shneider
+1 SEX M
+1 BIRT
+2 DATE 6 APR 2016
+1 FAMC @F7@
 0 @F1@ FAM
 1 HUSB @I19@
 1 WIFE @I1@
@@ -281,6 +371,16 @@
 1 CHIL @I15@
 1 CHIL @I16@
 1 CHIL @I17@
+1 CHIL @I39@
+1 CHIL @I38@
+1 CHIL @I37@
+1 CHIL @I36@
+1 CHIL @I35@
+1 CHIL @I34@
+1 CHIL @I33@
+1 CHIL @I32@
+1 CHIL @I31@
+1 CHIL @I30@
 1 MARR
 2 DATE 13 JUN 1970
 1 DIV

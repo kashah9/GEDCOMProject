@@ -1,6 +1,163 @@
-Warning: Individual ID @I1@ has Birthdate Wed Apr 11 00:00:00 EDT 2018 after current date.
-Warning: Family ID @F2@ has wife who has marriage date after her birthdate.
-Warning: Family ID @F2@ has marriage date Tue May 06 00:00:00 EDT 1980 after divorce date.
-Warning: Family ID @F4@ has wife who has marriage date after her death.
-Warning: Family ID @F2@ has wife who has death date beofer her birthdate.
-Warning: Family ID @F4@ has wife who has divorce date after her death.
+Warning- US22: Individual with @I2@ already exists.
+Warning US#1: Individual ID @I19@ has Birthdate Fri Jul 07 00:00:00 EDT 2017 after current date.
+Warning US#1: Family ID @F1@ has Marriagedate Sun Jan 08 00:00:00 EST 2017 after current date.
+Warning US#2: Family ID @F1@ has husband who has marriage date after his birthdate.
+Warning US#2: Family ID @F3@ has wife who has marriage date before her birthdate.
+Warning US#2: Family ID @F5@ has wife who has marriage date before her birthdate.
+Warning US#2: Family ID @F5@ has husband who has marriage date after his birthdate.
+Warning US#2: Family ID @F8@ has husband who has marriage date after his birthdate.
+Warning US#2: Family ID @F9@ has wife who has marriage date before her birthdate.
+Warning US#2: Family ID @F9@ has husband who has marriage date after his birthdate.
+Warning US#4: Family ID @F7@ has marriage date Sat Jun 13 00:00:00 EDT 1970 after divorce date.
+Warning US#5: Family ID @F6@ has wife who has marriage date after her death.
+Warning US#3: Family ID @F1@ has husband who has death date beofore his birthdate.
+Warning US#8: Family ID @F1@ has husband who has death date beofore his birthdate.
+Warning US#8: Family ID @F3@ has wife who has death date beofer her birthdate.
+Warning US#8: Family ID @F5@ has wife who has death date beofer her birthdate.
+Warning US#8: Family ID @F5@ has husband who has death date beofore his birthdate.
+Warning US#8: Family ID @F5@ has child who was born before the death of his/her parents.
+Warning US#8: Family ID @F8@ has husband who has death date beofore his birthdate.
+Warning US#8: Family ID @F9@ has wife who has death date beofer her birthdate.
+Warning US#8: Family ID @F9@ has husband who has death date beofore his birthdate.
+Warning US#8: Family ID @F9@ has child who was born before the death of his/her parents.
+Warning US#6: Family ID @F5@ has husband who has divorce date before his Death.
+Warning US#6: Family ID @F6@ has wife who has divorce date before her Death.
+Warning US#6: Family ID @F9@ has wife who has divorce date before her Death.
+Warning US#6: Family ID @F9@ has husband who has divorce date before his Death.
+Warning US#16: Family ID @F2@ has different surnames for male.
+Warning US#16: Family ID @F7@ has different surnames for male.
+Warning US#16: Family ID @F7@ has different surnames for male.
+Warning US#16: Family ID @F7@ has different surnames for male.
+Warning US#16: Family ID @F7@ has different surnames for male.
+Warning US#16: Family ID @F7@ has different surnames for male.
+Warning US#16: Family ID @F7@ has different surnames for male.
+Warning US#16: Family ID @F7@ has different surnames for male.
+Warning US#16: Family ID @F7@ has different surnames for male.
+Warning US#16: Family ID @F7@ has different surnames for male.
+Warning US#17: Family ID @F8@ has marriage to descedants.
+Warning US#10: Family ID @F3@ has wife who has marriage before 14.
+Warning US#10: Family ID @F3@ has husband who has marriage before 14.
+Warning US#10: Family ID @F5@ has wife who has marriage before 14.
+Warning US#10: Family ID @F5@ has husband who has marriage before 14.
+Warning US#10: Family ID @F9@ has wife who has marriage before 14.
+Warning US#10: Family ID @F9@ has husband who has marriage before 14.
+Warning US#7: Individual ID @I9@ has age more than 150.
+Warning US#12: Family ID @F2@ has too old mother.
+Warning US#12: Family ID @F7@ has too old mother.
+Warning US#12: Family ID @F7@ has too old mother.
+Warning US#12: Family ID @F7@ has too old mother.
+Warning US#12: Family ID @F7@ has too old mother.
+Warning US#12: Family ID @F7@ has too old mother.
+Warning US#12: Family ID @F7@ has too old mother.
+Warning US#12: Family ID @F7@ has too old mother.
+Warning US#12: Family ID @F7@ has too old mother.
+Warning US#12: Family ID @F7@ has too old mother.
+Warning US#12: Family ID @F7@ has too old mother.
+Warning US#12: Family ID @F7@ has too old mother.
+Warning US#12: Family ID @F7@ has too old mother.
+Warning US#12: Family ID @F7@ has too old mother.
+Warning US#12: Family ID @F7@ has too old mother.
+Warning US#12: Family ID @F7@ has too old mother.
+Warning US#12: Family ID @F7@ has too old mother.
+Warning US#21: Family ID @F1@ has wife who is not Female
+US#29- List of Deceased Individuals:
+@I10@:Robert Gomez
+@I20@:Sara Gomez
+@I9@:Hilda Shulz
+US#28- Sorted Siblings by Age for Family @F2@:
+Name:Michael  Smith Age:31.0
+Name:Joshua  Schulz Age:36.0
+US#28- Sorted Siblings by Age for Family @F7@:
+Name:Alex  Shneider Age:0.0
+Name:Alfred  Shneider Age:0.0
+Name:Benjamin  Shneider Age:0.0
+Name:Dale  Shneider Age:0.0
+Name:Danielle  Shneider Age:0.0
+Name:Denise  Shneider Age:0.0
+Name:Edward  Shneider Age:0.0
+Name:Emma  Shneider Age:0.0
+Name:Jay  Shneider Age:0.0
+Name:Jay  Shneider Age:0.0
+Name:Kristen  Shneider Age:0.0
+Name:Laurel  Shneider Age:0.0
+Name:Logan  Shneider Age:0.0
+Name:Lori  Shneider Age:0.0
+Name:Susan  Shneider Age:0.0
+Name:Tom  Shneider Age:0.0
+Warning US#25: Individuals have the Same First Name in Family @F7@
+Warning US#23: Individuals have the same name.
+Warning US#23: Individuals have the same name.
+Warning US#14:More than five births at the same time in Family @F7@
+Warning US#15: More than 15 siblings in family @F7@
+lololol105
+Warning US#32:List of Multiple Births in Family @F7@
+@I12@
+@I13@
+@I14@
+@I15@
+@I16@
+@I17@
+@I39@
+@I38@
+@I37@
+@I36@
+@I35@
+@I34@
+@I33@
+@I32@
+US#30- List of Living Married:
+Michael Smith AND David Shulz
+Theresa Schulz AND Johan Schulz
+Anna Schulz AND Jonas Schulz
+Joshua Schulz AND Joanne Shulz
+Laura Schulz AND Jay Shneider
+US#33 - List Orphans:
+Jennifer Gomez
+
+Individual Summary
+ID 	 NAME         	 SEX 	 BIRTH DATE 				 DEATH DATE 				 FAMC 	 FAMS 	
+@I10@	Robert /Gomez/	M	Tue Apr 15 00:00:00 EST 1958	Thu Apr 17 00:00:00 EDT 1975			@F9@
+@I11@	Henry /Gomez/	M	Tue Nov 10 00:00:00 EST 1987							@F5@		
+@I12@	Jay /Shneider/	M	Wed Apr 06 00:00:00 EDT 2016							@F7@		
+@I13@	Jay /Shneider/	M	Wed Apr 06 00:00:00 EDT 2016							@F7@		
+@I14@	Danielle /Shneider/	F	Sat Apr 09 00:00:00 EDT 2016							@F7@		
+@I15@	Denise /Shneider/	F	Wed Apr 06 00:00:00 EDT 2016							@F7@		
+@I16@	Logan /Shneider/	M	Wed Apr 06 00:00:00 EDT 2016							@F7@		
+@I17@	Benjamin /Shneider/	M	Wed Apr 06 00:00:00 EDT 2016							@F7@		
+@I18@	Joanne /Shulz/	M	Fri Aug 02 00:00:00 EDT 1985									@F4@
+@I19@	David /Shulz/	M	Fri Jul 07 00:00:00 EDT 2017							@F4@	@F1@
+@I1@	Michael /Smith/	M	Thu Jul 18 00:00:00 EDT 1985							@F2@	@F1@
+@I20@	Sara /Gomez/	F	Sun Oct 16 00:00:00 EDT 1960	Sat Dec 06 00:00:00 EST 1980			@F9@
+@I21@	Jennifer /Gomez/	F	Tue Oct 05 00:00:00 EDT 1971							@F9@		
+@I2@	Theresa /Schulz/	F	Fri Jul 18 00:00:00 EDT 1919									@F2@
+@I30@	Alex /Shneider/	M	Wed Apr 06 00:00:00 EDT 2016							@F7@		
+@I31@	Dale /Shneider/	M	Wed Apr 06 00:00:00 EDT 2016							@F7@		
+@I32@	Lori /Shneider/	F	Wed Apr 06 00:00:00 EDT 2016							@F7@		
+@I33@	Laurel /Shneider/	F	Wed Apr 06 00:00:00 EDT 2016							@F7@		
+@I34@	Susan /Shneider/	F	Wed Apr 06 00:00:00 EDT 2016							@F7@		
+@I35@	Edward /Shneider/	M	Wed Apr 06 00:00:00 EDT 2016							@F7@		
+@I36@	Alfred /Shneider/	M	Wed Apr 06 00:00:00 EDT 2016							@F7@		
+@I37@	Kristen /Shneider/	F	Wed Apr 06 00:00:00 EDT 2016							@F7@		
+@I38@	Emma /Shneider/	F	Wed Apr 06 00:00:00 EDT 2016							@F7@		
+@I39@	Tom /Shneider/	M	Wed Apr 06 00:00:00 EDT 2016							@F7@		
+@I3@	Johan /Schulz/	M	Fri Aug 19 00:00:00 EDT 1960							@F3@	@F2@
+@I4@	Joshua /Schulz/	F	Mon Mar 10 00:00:00 EST 1980							@F2@	@F4@
+@I5@	Anna /Schulz/	F	Tue Feb 28 00:00:00 EST 1961									@F5@
+@I6@	Jonas /Schulz/	M	Mon Sep 01 00:00:00 EDT 1930									@F8@
+@I7@	Laura /Schulz/	F	Sun Dec 12 00:00:00 EST 1948							@F8@	@F7@
+@I8@	Leon /Schneider/	M	Thu Jun 26 00:00:00 EDT 1947									@F7@
+@I9@	Hilda /Shulz/	F	Sat Apr 04 00:00:00 EST 1750	Mon Feb 04 00:00:00 EST 1935			@F6@
+
+
+
+Family Summary
+ID 	 HUSB 	 WIFE 	 CHIL 	 MARR DATE 			 DIV DATE
+@F1@	@I1@	@I19@	    	Sun Jan 08 00:00:00 EST 2017				
+@F2@	@I2@	@I3@	@I1@-@I4@	Fri Aug 10 00:00:00 EDT 1990				
+@F3@	@I5@	@I6@	@I3@	Wed Dec 07 00:00:00 EST 1960				
+@F4@	@I4@	@I18@	@I19@	Fri Jun 10 00:00:00 EDT 2016				
+@F5@	@I5@	@I10@	@I11@	Sat Feb 01 00:00:00 EST 1958	Sat Jul 15 00:00:00 EDT 1989
+@F6@	@I9@	@I6@	    	Sun Sep 01 00:00:00 EDT 1935				
+@F7@	@I7@	@I8@	@I12@-@I13@-@I14@-@I15@-@I16@-@I17@-@I39@-@I38@-@I37@-@I36@-@I35@-@I34@-@I33@-@I32@-@I31@-@I30@	Sat Jun 13 00:00:00 EDT 1970	Thu Feb 05 00:00:00 EST 1970
+@F8@	@I7@	@I13@	    	Sat Jun 13 00:00:00 EDT 1970				
+@F9@	@I20@	@I10@	@I21@	Sun Sep 18 00:00:00 EDT 1955				
