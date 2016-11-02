@@ -1243,6 +1243,8 @@ class FamDetails
 		Set set = family.entrySet();
 		Iterator it = set.iterator();
 		
+		output += "US #28 - List of Deceased Individuals:"+eol;
+		
 		while(it.hasNext())
 		{
 			Map.Entry me = (Map.Entry)it.next();
@@ -1712,104 +1714,6 @@ class FamDetails
 		return output;
 	}
 	
-	// US#30 List Living Married (Karan Shah)
-	public String listlivingmarried()
-	{
-		String output = "";
-		String eol = System.getProperty("line.separator");
-		Set set = family.entrySet();
-		Iterator it = set.iterator();
-		System.out.println("US#30 - List Living Married");
-		output = "US#30- List of Living Married:"+eol;
-		
-		while(it.hasNext())
-		{
-			Map.Entry me = (Map.Entry)it.next();
-			Date marrDate = new Date();
-			String wifey = "";
-			String hubby = "";
-			String famkey = me.getKey().toString();
-			HashMap famvalue = (HashMap)me.getValue();
-			if(famvalue.containsKey("MARR"))
-			{
-				marrDate = (Date)famvalue.get("MARR");
-			}
-			if(!famvalue.containsKey("DIV"))
-			{
-				if(famvalue.containsKey("WIFE"))
-				{
-					wifey = (String)famvalue.get("WIFE");
-				}
-				if(famvalue.containsKey("HUSB"))
-				{
-					hubby = (String)famvalue.get("HUSB");
-				}	
-				if(wifey != "" && hubby != "")
-				{
-					HashMap wifeyMap = (HashMap)individual.get(wifey);
-					HashMap hubbyMap = (HashMap)individual.get(hubby);
-					if(!wifeyMap.containsKey("DEAT") && !hubbyMap.containsKey("DEAT"))
-					{
-						String wifename = (String)wifeyMap.get("NAME");
-						String[] wifenames = wifename.split("/");
-						String husbname = (String)hubbyMap.get("NAME");
-						String[] husbnames = husbname.split("/");
-						System.out.println(wifenames[0]+wifenames[1]+" AND "+husbnames[0]+husbnames[1]);
-						output+=wifenames[0]+wifenames[1]+" AND "+husbnames[0]+husbnames[1]+eol;
-					}
-				}
-			}
-		}
-		return output;
-	}
-	
-	//US#33 - List orphans (Karan Shah)
-	public String listorphans()
-	{
-		String output = "";
-		String eol = System.getProperty("line.separator");
-		Set set = family.entrySet();
-		Iterator it = set.iterator();
-		System.out.println("US#33 - List Orphans");
-		output = "US#33 - List Orphans:"+eol;
-		
-		while(it.hasNext())
-		{
-			Map.Entry me = (Map.Entry)it.next();
-			Date marrDate = new Date();
-			String wifey = "";
-			String hubby = "";
-			String famkey = me.getKey().toString();
-			HashMap famvalue = (HashMap)me.getValue();
-			if(famvalue.containsKey("CHIL"))
-			{
-				String childy = (String)famvalue.get("CHIL");
-				if(famvalue.containsKey("WIFE"))
-				{
-					wifey = (String)famvalue.get("WIFE");
-				}
-				if(famvalue.containsKey("HUSB"))
-				{
-					hubby = (String)famvalue.get("HUSB");
-				}	
-				if(wifey != "" && hubby != "" && childy != "")
-				{
-					HashMap wifeyMap = (HashMap)individual.get(wifey);
-					HashMap hubbyMap = (HashMap)individual.get(hubby);
-					HashMap childMap = (HashMap)individual.get(childy);
-					if(wifeyMap.containsKey("DEAT") && hubbyMap.containsKey("DEAT"))
-					{
-						String childname = (String)childMap.get("NAME");
-						String[] childnames = childname.split("/");
-						System.out.println(childnames[0]+childnames[1]);
-						output+=childnames[0]+childnames[1]+eol;
-					}
-				}
-			}
-		}
-		return output;
-	}
-	
 	//US#32: Multiple Births
 	public String multipleBirthsList()
 	{
@@ -1905,7 +1809,7 @@ class gedcomParserP04
 				
 		try
 		{
-			File fl = new File("C:\\Users\\skind\\Desktop\\Team03Project08\\output.txt");
+			File fl = new File("C:\\Users\\Shweta\\Desktop\\Fall- 2016\\CS 555 A\\Team3 Project08\\project08_output.txt");
 			if (!fl.exists()) 
 			{
 				fl.createNewFile();
@@ -1916,7 +1820,7 @@ class gedcomParserP04
 			
 			String line;
 			List lineList = new ArrayList();
-			br = new BufferedReader(new FileReader("C:\\Users\\skind\\Desktop\\Team03Project08\\familyTreeNew.ged"));
+			br = new BufferedReader(new FileReader("C:\\Users\\Shweta\\Desktop\\Fall- 2016\\CS 555 A\\Team3 Project08\\familyTreeNew.ged"));
 			while((line = br.readLine()) != null)
 			{
 				lineList.add(line);
@@ -2321,12 +2225,6 @@ class gedcomParserP04
 			
 			//US#32
 			output+=fds.multipleBirthsList();
-			
-			//US#30
-			output+=fds.listlivingmarried();
-			
-			//US#33
-			output+=fds.listorphans();
 			
 			//US#34(Sprint-4/Ketu)
 			//output+=fds.listLargeAgeDifference();
