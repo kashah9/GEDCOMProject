@@ -20,10 +20,20 @@ Warning US#8: Family ID @F8@ has husband who has death date beofore his birthdat
 Warning US#8: Family ID @F9@ has wife who has death date beofer her birthdate.
 Warning US#8: Family ID @F9@ has husband who has death date beofore his birthdate.
 Warning US#8: Family ID @F9@ has child who was born before the death of his/her parents.
+Warning US#6: Family ID @F10@ has wife who has divorce date before her Death.
+Warning US#6: Family ID @F10@ has husband who has divorce date before his Death.
+Warning US#6: Family ID @F11@ has wife who has divorce date before her Death.
+Warning US#6: Family ID @F11@ has husband who has divorce date before his Death.
 Warning US#6: Family ID @F5@ has husband who has divorce date before his Death.
 Warning US#6: Family ID @F6@ has wife who has divorce date before her Death.
 Warning US#6: Family ID @F9@ has wife who has divorce date before her Death.
 Warning US#6: Family ID @F9@ has husband who has divorce date before his Death.
+US#9 (Karan Shah)
+Child Names born after death of Parents:
+Justin Vegas
+Lukas Graham
+Warning US#16: Family ID @F10@ has different surnames for male.
+Warning US#16: Family ID @F11@ has different surnames for male.
 Warning US#16: Family ID @F2@ has different surnames for male.
 Warning US#16: Family ID @F7@ has different surnames for male.
 Warning US#16: Family ID @F7@ has different surnames for male.
@@ -63,6 +73,10 @@ Warning US#21: Family ID @F1@ has wife who is not Female
 US#29- List of Deceased Individuals:
 @I10@:Robert Gomez
 @I20@:Sara Gomez
+@I93@:Max Spiner
+@I94@:Sarah Aby
+@I95@:Natalie Bromily
+@I96@:Calvin Harris
 @I9@:Hilda Shulz
 US#28- Sorted Siblings by Age for Family @F2@:
 Name:Michael  Smith Age:31.0
@@ -112,7 +126,37 @@ Anna Schulz AND Jonas Schulz
 Joshua Schulz AND Joanne Shulz
 Laura Schulz AND Jay Shneider
 US#33 - List Orphans:
+Justin Vegas
+Lukas Graham
 Jennifer Gomez
+US#35 List recent Births
+Fernando Perez
+Steve Black
+Lukas Graham
+Justin Vegas
+US#36 List recent Deaths
+Max Spiner
+Sarah Aby
+Natalie Bromily
+Calvin Harris
+US#34: List of Couples with Large Age Difference:
+@I2@(71.0)-@I3@(29.0):42.0
+@I9@(185.0)-@I6@(5.0):180.0
+US#13: Spacing between siblings @I14@ and @I12@ in family @F7@ is invalid.
+US#13: Spacing between siblings @I14@ and @I13@ in family @F7@ is invalid.
+US#13: Spacing between siblings @I15@ and @I14@ in family @F7@ is invalid.
+US#13: Spacing between siblings @I16@ and @I14@ in family @F7@ is invalid.
+US#13: Spacing between siblings @I17@ and @I14@ in family @F7@ is invalid.
+US#13: Spacing between siblings @I39@ and @I14@ in family @F7@ is invalid.
+US#13: Spacing between siblings @I38@ and @I14@ in family @F7@ is invalid.
+US#13: Spacing between siblings @I37@ and @I14@ in family @F7@ is invalid.
+US#13: Spacing between siblings @I36@ and @I14@ in family @F7@ is invalid.
+US#13: Spacing between siblings @I35@ and @I14@ in family @F7@ is invalid.
+US#13: Spacing between siblings @I34@ and @I14@ in family @F7@ is invalid.
+US#13: Spacing between siblings @I33@ and @I14@ in family @F7@ is invalid.
+US#13: Spacing between siblings @I32@ and @I14@ in family @F7@ is invalid.
+US#13: Spacing between siblings @I31@ and @I14@ in family @F7@ is invalid.
+US#13: Spacing between siblings @I30@ and @I14@ in family @F7@ is invalid.
 
 Individual Summary
 ID 	 NAME         	 SEX 	 BIRTH DATE 				 DEATH DATE 				 FAMC 	 FAMS 	
@@ -146,12 +190,23 @@ ID 	 NAME         	 SEX 	 BIRTH DATE 				 DEATH DATE 				 FAMC 	 FAMS
 @I6@	Jonas /Schulz/	M	Mon Sep 01 00:00:00 EDT 1930									@F8@
 @I7@	Laura /Schulz/	F	Sun Dec 12 00:00:00 EST 1948							@F8@	@F7@
 @I8@	Leon /Schneider/	M	Thu Jun 26 00:00:00 EDT 1947									@F7@
+@I90@	Fernando /Perez/	M	Tue Nov 01 00:00:00 EDT 2016										
+@I91@	Steve /Black/	M	Thu Oct 20 00:00:00 EDT 2016										
+@I92@	Janis /Pasquale/	F	Tue Oct 11 00:00:00 EDT 2016										
+@I93@	Max /Spiner/	M	Thu Jan 01 00:00:00 EST 1987	Sat Oct 29 00:00:00 EDT 2016			@F10@
+@I94@	Sarah /Aby/	F	Wed Mar 23 00:00:00 EST 1988	Thu Nov 03 00:00:00 EDT 2016			@F10@
+@I95@	Natalie /Bromily/	F	Fri Jun 01 00:00:00 EDT 1984	Mon Oct 24 00:00:00 EDT 2016			@F11@
+@I96@	Calvin /Harris/	M	Wed Jul 16 00:00:00 EDT 1980	Mon Oct 31 00:00:00 EDT 2016			@F11@
+@I97@	Lukas /Graham/	M	Sat Nov 12 00:00:00 EST 2016							@F11@		
+@I99@	Justin /Vegas/	M	Fri Nov 11 00:00:00 EST 2016							@F10@		
 @I9@	Hilda /Shulz/	F	Sat Apr 04 00:00:00 EST 1750	Mon Feb 04 00:00:00 EST 1935			@F6@
 
 
 
 Family Summary
 ID 	 HUSB 	 WIFE 	 CHIL 	 MARR DATE 			 DIV DATE
+@F10@	@I94@	@I93@	@I99@	Wed Nov 10 00:00:00 EST 2010				
+@F11@	@I95@	@I96@	@I97@	Mon Aug 08 00:00:00 EDT 2011				
 @F1@	@I1@	@I19@	    	Sun Jan 08 00:00:00 EST 2017				
 @F2@	@I2@	@I3@	@I1@-@I4@	Fri Aug 10 00:00:00 EDT 1990				
 @F3@	@I5@	@I6@	@I3@	Wed Dec 07 00:00:00 EST 1960				

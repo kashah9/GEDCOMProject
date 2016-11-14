@@ -23,7 +23,7 @@ class FamDetails
 		individual = indiMap;
 		family = famMap;
 	}
-	
+
 	public String printSummary()
 	{
 		String output = "";
@@ -1451,7 +1451,165 @@ class FamDetails
 		return output;
 	}
 	
+	//US#34
+	public String listLargeAgeDifference()
+	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
+		Set set = family.entrySet();
+		Iterator it = set.iterator();
+		ArrayList<String> diffCouples = new ArrayList<String>();
+		
+		while(it.hasNext())
+		{
+			Date mar_date = new Date();
+			
+			String wifey = "";
+			String hubby = "";
+			String child = "";
+			double wifeAge = 0;
+			double husbandAge = 0;
+			
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String famkey = me.getKey().toString();			
+			HashMap famvalue = (HashMap)me.getValue();
+			
+			if(famvalue.containsKey("MARR"))
+			{
+				mar_date = (Date)famvalue.get("MARR");
+			}
+			else
+			{
+				return "";
+			}
+			if(famvalue.containsKey("WIFE") && famvalue.containsKey("HUSB"))
+			{
+				wifey = (String)famvalue.get("WIFE");
+				HashMap wifeyMap = (HashMap)individual.get(wifey);
+				Date wifeBirth = (Date)wifeyMap.get("BIRT");
+				long temp1 = mar_date.getTime()-wifeBirth.getTime();
+				wifeAge = Math.round(temp1 / 1000 / 60 / 60 / 24 / 365);
+				//System.out.println("WifeAge: "+wifeAge);
+			
+				hubby = (String)famvalue.get("HUSB");
+				HashMap hubbyMap = (HashMap)individual.get(hubby);
+				Date husbBirth = (Date)hubbyMap.get("BIRT");
+				long temp2 = mar_date.getTime()-husbBirth.getTime();
+				husbandAge = Math.round(temp2 / 1000 / 60 / 60 / 24 / 365);
+			}
+			
+			if(wifeAge>0 && husbandAge>0)
+			{
+				if(wifeAge/husbandAge>2)
+				{
+					diffCouples.add(wifey+"("+wifeAge+")-"+hubby+"("+husbandAge+"):"+(wifeAge-husbandAge));
+				}
+				if(husbandAge/wifeAge>2)
+				{
+					diffCouples.add(wifey+"("+wifeAge+")-"+hubby+"("+husbandAge+"):"+(husbandAge-wifeAge));
+				}
+			}
+			
+		}
+		if(diffCouples.size()>0)
+		{
+			System.out.println("US#34: List of Couples with Large Age Difference:");
+			output+="US#34: List of Couples with Large Age Difference:"+eol;
+			for(int i=0; i<diffCouples.size(); i++)
+			{
+				System.out.println(diffCouples.get(i));
+				output+=diffCouples.get(i)+eol;
+			}
+			
+		}
+		return output;
+	}
 	
+	//US#13
+	public String siblingSpacing()
+	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
+		Set set = family.entrySet();
+		Iterator it = set.iterator();
+		
+		
+		while(it.hasNext())
+		{
+			Map.Entry me = (Map.Entry)it.next();
+			
+			String famKey = me.getKey().toString();			
+			HashMap famValue = (HashMap)me.getValue();
+			String chil = "";
+			
+			//SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
+			
+			try
+			{
+				if(famValue.containsKey("CHIL"))
+				{
+					chil = (String)famValue.get("CHIL");
+					if(chil.contains("-"))
+					{
+						
+						String[] children = chil.split("-");
+						ArrayList<String> chilList = new ArrayList<String>();
+						for(int j=0;j<children.length-1;j++)
+						{
+							HashMap indvalue = (HashMap)individual.get(children[j]);
+							Date birthDate = new Date();
+							if(indvalue.containsKey("BIRT"))
+							{
+								birthDate = (Date)indvalue.get("BIRT");
+								
+							}
+							for(int k=j+1;k<children.length;k++)
+							{
+								
+								HashMap tempInd = (HashMap)individual.get(children[k]);
+								Date tempbirthDate = new Date();
+								if(tempInd.containsKey("BIRT"))
+								{
+									tempbirthDate = (Date)tempInd.get("BIRT");
+									
+								}
+								
+								
+								double diffMillies = birthDate.getTime() - tempbirthDate.getTime();
+								double diff;
+								if(diffMillies>0)
+								{
+									
+									
+									diff = Math.round(diffMillies / 1000 / 60 / 60 / 24);
+									
+									
+								}
+								else
+								{
+									diffMillies = 0-diffMillies;
+									diff = Math.round(diffMillies / 1000 / 60 / 60 / 24);
+									
+									
+								}
+								if(diff>2 && diff<243)
+								{
+									System.out.println("US#13: Spacing between siblings "+children[k]+" and "+children[j]+" in family "+famKey+" is invalid.");
+									output+="US#13: Spacing between siblings "+children[k]+" and "+children[j]+" in family "+famKey+" is invalid."+eol;
+								}
+							}
+						}
+					}
+				}
+			}
+			catch(Exception e)
+			{
+				System.out.println(e);
+			}
+		}
+		return output;
+	}
 	
 	//US #14 Multiple birth less than five        
 	public String multipleBirthLessThanFive()
@@ -2255,6 +2413,12 @@ class gedcomParserP04
 			
 			//US#36
 			output += fds.listrecentDeaths();
+			
+			//US#34
+			output+=fds.listLargeAgeDifference();
+			
+			//US#13
+			output+=fds.siblingSpacing();
 			
 			System.out.println(fds.printSummary());
 			output+=fds.printSummary();
