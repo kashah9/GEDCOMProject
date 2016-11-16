@@ -6,133 +6,7 @@ import java.util.regex.Pattern;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
-
-
-
-class Individual implements Comparable<Individual> {
-
-    // the info list for individual
-    private String id;
-    private String name;
-    private String givenName;
-    private String surName;
-    private char sex;
-    private String birthDate;
-    private String deathDate;
-
-    private Individual mother;
-    private Individual father;
-
-    private Individual spouse;
-
-    public Individual getSpouse() {
-        return this.spouse;
-    }
-
-    public void setSpouse(Individual ind) {
-        this.spouse = ind;
-    }
-
-    public void setId (String id) {
-        this.id = id;
-    }
-
-    public String getId () {
-        return this.id;
-    }
-
-    public void setName (String name) {
-        this.name = name;
-    }
-
-    public String getName () {
-        return this.name;
-    }
-
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
- public Individual getMother () { return this.mother; }
-
-    public void setMother (Individual mother) { this.mother = mother; }
-
-    public Individual getFather () { return this.father; }
-
-    public void setFather (Individual father) { this.father= father; }
-
-
-    public String getBirthDate() {
-        return this.birthDate;
-    }
-
-    public void setDeathDate(String deathDate) {
-        this.deathDate = deathDate;
-    }
-
-    public String getDeathDate() {
-        return this.deathDate;
-    }
-
-    public double getAge() {
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
-
-            Date birthDate = format.parse(this.getBirthDate());
-            Date currentDate = new Date();
-
-            long diff = currentDate.getTime() - birthDate.getTime();
-            long diffHours = diff / (60 * 60 * 1000);
-            long diffDays = diffHours / 24; // 48
-            double diffYear = diffDays / 365.0;
-            return diffYear;
-        } catch (Exception ex) {}
-        return 0.0;
-    }
-
-    public int compareTo(Individual other)
-    {
-        if (this.getAge() > other.getAge())
-            return 1;
-        if (this.getAge() < other.getAge())
-            return -1;
-        else
-            return 0;
-    }
-
-       
-}
-
-class Helper {
-	public int transfMon(String mon) {
-		if(mon.equals("JAN"))
-			return 1;
-		else if(mon.equals("FEB"))
-			return 2;
-		else if(mon.equals("MAR"))
-			return 3;
-		else if(mon.equals("APR"))
-			return 4;
-		else if(mon.equals("MAY"))
-			return 5;
-		else if(mon.equals("JUN"))
-			return 6;
-		else if(mon.equals("JUL"))
-			return 7;
-		else if(mon.equals("AUG"))
-			return 8;
-		else if(mon.equals("SEP"))
-			return 9;
-		else if(mon.equals("OCT"))
-			return 10;
-		else if(mon.equals("NOV"))
-			return 11;
-		else
-			return 12;
-	}
-}
 class FamDetails
 {
 	TreeMap individual;
@@ -1577,7 +1451,7 @@ class FamDetails
 		return output;
 	}
 	
-	//US#34
+	//US#34 (Ketu Shah)
 	public String listLargeAgeDifference()
 	{
 		String output = "";
@@ -1940,6 +1814,8 @@ class FamDetails
 		Set set = family.entrySet();
 		Iterator it = set.iterator();
 		
+		
+		
 		while(it.hasNext())
 		{
 			Map.Entry me = (Map.Entry)it.next();
@@ -2052,6 +1928,7 @@ class FamDetails
 	}
 	
 	// US#36 List Recent Deaths (Karan Shah)
+	
 	public String listrecentDeaths()
 	{
 		
@@ -2088,9 +1965,52 @@ class FamDetails
 			}
 		}
 		return output;
-	}    
-       
-    //US#18 siblings should not marry       
+	}
+	
+	// US#31 List Living Single (Archita Zaveri)
+	public String listlivingsingle()
+	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
+		Set set = family.entrySet();
+		Iterator it = set.iterator();
+		
+		Set indset = individual.entrySet();
+		Iterator indit = indset.iterator();
+		
+		System.out.println("US#31 - List of Living Single");
+		output = "US#31 - List of Living Single:"+eol;
+		
+		while(indit.hasNext())
+		{
+			Map.Entry me = (Map.Entry)indit.next();
+			
+			String indId = me.getKey().toString();			
+			HashMap indVal = (HashMap)me.getValue();
+			
+			// System.out.println("Heloooooooooooooooooooooooooooooooo"+indVal);
+			if(!indVal.containsKey("FAMS") && !indVal.containsKey("DEAT"))
+			{
+				Date birth = (Date)indVal.get("BIRT");
+				DateFormat df = new SimpleDateFormat("dd MMM yyyy");
+				Date today = new Date();
+				
+				long temp = today.getTime() - birth.getTime();
+				int age = Math.round(temp / 1000 / 60 / 60 / 24 / 365);
+				if(age > 30)
+				{
+					// System.out.println("Daysssssssssssssssssssssssssssssssssssss"+age);
+					String name = (String)indVal.get("NAME");
+					String[] names = name.split("/");
+					System.out.println(indId+":"+names[0]+names[1]);
+					output+=indId+":"+names[0]+names[1]+eol;
+				}
+			}
+		}
+		return output;
+	}
+	   
+    //US#18 siblings should not marry (Shweta)       
     public String siblingsShouldNotMarry() 
 	{
 		String output = "";
@@ -2143,7 +2063,7 @@ class FamDetails
 							if(child.contains(husb) && child.contains(wife))
 							{
 								System.out.println("US#18: Siblings cannot marry eachother. Family ID: "+innerfamId);
-								output+="US#18: Siblings cannot marry eachother. Family ID: "+innerfamId;
+								output+="US#18: Siblings cannot marry eachother. Family ID: "+innerfamId+eol;
 							}
 						}
 					}
@@ -2164,6 +2084,8 @@ class FamDetails
 		List<String> deadPeople = new ArrayList<String>();
 		List<String> survivors = new ArrayList<String>();
 		
+		System.out.println("US#37: List Recent survivors");
+		output += "US#37: List Recent survivors"+eol;
 		while(it.hasNext())
 		{
 			Map.Entry me = (Map.Entry)it.next();
@@ -2248,8 +2170,8 @@ class FamDetails
 							}
 						}
 					}
-					System.out.println();
-					output+="US#37: Recent Survivors for family "+famId+eol;
+					System.out.println("Family"+famId);
+					output+="Family "+famId+eol;
 					for(int i=0;i<survivors.size();i++)
 					{
 						System.out.println(survivors.get(i));
@@ -2261,8 +2183,76 @@ class FamDetails
 		}
 		return output;
 	}
+	
+	// US#24 Unique family by spouse (Archita)
+	public String uniquefamilybyspouse()
+	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
+		Set set = family.entrySet();
+		Iterator it = set.iterator();
+		
+		
+		
+		while(it.hasNext())
+		{
+			String wifey = "";
+			String hubby = "";
+			
+			Date marrDate = new Date();
+			Date marrDate1 = new Date();
+			Map.Entry me = (Map.Entry)it.next();
+			String famId = me.getKey().toString();
+			HashMap famValue = (HashMap)me.getValue();
+			
+			if(famValue.containsKey("WIFE"))
+			{
+				wifey = (String)famValue.get("WIFE");
+			}
+			if(famValue.containsKey("HUSB"))
+			{
+				hubby = (String)famValue.get("HUSB");
+			}	
+			if(famValue.containsKey("MARR"))
+			{
+				marrDate = (Date)famValue.get("MARR");
+			}
+			
+			Set set1 = family.entrySet();
+			Iterator it1 = set1.iterator();
+			while(it1.hasNext())
+			{
+				Map.Entry me1 = (Map.Entry)it1.next();
+				String famId1 = me1.getKey().toString();
+				HashMap famValue1 = (HashMap)me1.getValue();
+				String wifey1 = "";
+				String hubby1 = "";
+				
+				if(famValue1.containsKey("WIFE"))
+				{
+					wifey1 = (String)famValue1.get("WIFE");
+				}
+				if(famValue1.containsKey("HUSB"))
+				{
+					hubby1 = (String)famValue1.get("HUSB");
+				}	
+				if(famValue1.containsKey("MARR"))
+				{
+					marrDate1 = (Date)famValue1.get("MARR");
+				}
+				if(famId != famId1)
+				{
+					if(wifey.equals(wifey1) && hubby.equals(hubby1) && marrDate.compareTo(marrDate1)==0)
+					{
+						System.out.println("US#24: Different families have same spouses - "+famId+" & "+famId1);
+						output+="US#24: Different families have same spouses - "+famId+" & "+famId1+eol;
+					}
+				}
+			}
+		}
+		return output;
+	}
 }
-
 
 class gedcomParserP04
 {
@@ -2277,7 +2267,7 @@ class gedcomParserP04
 				
 		try
 		{ 
-			File fl = new File("E:\\Stevens\\CS555 Agile\\\\Week 5\\output.txt");
+			File fl = new File("C:\\Users\\skind\\Desktop\\Stevens\\Agile\\Team03Project08\\output.txt");
 			if (!fl.exists()) 
 			{
 				fl.createNewFile();
@@ -2287,7 +2277,7 @@ class gedcomParserP04
 			BufferedWriter bw = new BufferedWriter(fw);
 			String line;
 			List lineList = new ArrayList();
-			br = new BufferedReader(new FileReader("E:\\Stevens\\CS555 Agile\\Week 4\\familyTreeNew.ged"));
+			br = new BufferedReader(new FileReader("C:\\Users\\skind\\Desktop\\Stevens\\Agile\\Team03Project08\\familyTreeNew.ged"));
 			while((line = br.readLine()) != null)
 			{
 				lineList.add(line);
@@ -2713,12 +2703,21 @@ class gedcomParserP04
 			//US#13
 			output+=fds.siblingSpacing();
 			
-			//US#37
-			output+=fds.listRecentSurvivors();
+			//US#31 
+			output += fds.listlivingsingle();
+			
+			//US#38
+			output += fds.listupcomingbirthdays();
 			
 			//US#18
-			output+=fds.siblingsShouldNotMarry();
+			output += fds.siblingsShouldNotMarry();
 			
+			//US#37
+			output += fds.listRecentSurvivors();
+			
+			//US#24
+			output += fds.uniquefamilybyspouse();
+
 			System.out.println(fds.printSummary());
 			output+=fds.printSummary();
 			System.out.println(output);
