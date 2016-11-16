@@ -6,7 +6,133 @@ import java.util.regex.Pattern;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
+
+
+
+class Individual implements Comparable<Individual> {
+
+    // the info list for individual
+    private String id;
+    private String name;
+    private String givenName;
+    private String surName;
+    private char sex;
+    private String birthDate;
+    private String deathDate;
+
+    private Individual mother;
+    private Individual father;
+
+    private Individual spouse;
+
+    public Individual getSpouse() {
+        return this.spouse;
+    }
+
+    public void setSpouse(Individual ind) {
+        this.spouse = ind;
+    }
+
+    public void setId (String id) {
+        this.id = id;
+    }
+
+    public String getId () {
+        return this.id;
+    }
+
+    public void setName (String name) {
+        this.name = name;
+    }
+
+    public String getName () {
+        return this.name;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+ public Individual getMother () { return this.mother; }
+
+    public void setMother (Individual mother) { this.mother = mother; }
+
+    public Individual getFather () { return this.father; }
+
+    public void setFather (Individual father) { this.father= father; }
+
+
+    public String getBirthDate() {
+        return this.birthDate;
+    }
+
+    public void setDeathDate(String deathDate) {
+        this.deathDate = deathDate;
+    }
+
+    public String getDeathDate() {
+        return this.deathDate;
+    }
+
+    public double getAge() {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
+
+            Date birthDate = format.parse(this.getBirthDate());
+            Date currentDate = new Date();
+
+            long diff = currentDate.getTime() - birthDate.getTime();
+            long diffHours = diff / (60 * 60 * 1000);
+            long diffDays = diffHours / 24; // 48
+            double diffYear = diffDays / 365.0;
+            return diffYear;
+        } catch (Exception ex) {}
+        return 0.0;
+    }
+
+    public int compareTo(Individual other)
+    {
+        if (this.getAge() > other.getAge())
+            return 1;
+        if (this.getAge() < other.getAge())
+            return -1;
+        else
+            return 0;
+    }
+
+       
+}
+
+class Helper {
+	public int transfMon(String mon) {
+		if(mon.equals("JAN"))
+			return 1;
+		else if(mon.equals("FEB"))
+			return 2;
+		else if(mon.equals("MAR"))
+			return 3;
+		else if(mon.equals("APR"))
+			return 4;
+		else if(mon.equals("MAY"))
+			return 5;
+		else if(mon.equals("JUN"))
+			return 6;
+		else if(mon.equals("JUL"))
+			return 7;
+		else if(mon.equals("AUG"))
+			return 8;
+		else if(mon.equals("SEP"))
+			return 9;
+		else if(mon.equals("OCT"))
+			return 10;
+		else if(mon.equals("NOV"))
+			return 11;
+		else
+			return 12;
+	}
+}
 class FamDetails
 {
 	TreeMap individual;
@@ -1814,8 +1940,6 @@ class FamDetails
 		Set set = family.entrySet();
 		Iterator it = set.iterator();
 		
-		
-		
 		while(it.hasNext())
 		{
 			Map.Entry me = (Map.Entry)it.next();
@@ -1964,12 +2088,181 @@ class FamDetails
 			}
 		}
 		return output;
+	}    
+       
+    //US#18 siblings should not marry       
+    public String siblingsShouldNotMarry() 
+	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
+		Set set = family.entrySet();
+		Iterator it = set.iterator();
+		
+		while(it.hasNext())
+		{
+			Map.Entry me = (Map.Entry)it.next();
+			String famId = me.getKey().toString();
+			HashMap famValue = (HashMap)me.getValue();
+			String chil = "";
+			
+			if(famValue.containsKey("CHIL"))
+			{
+				chil = (String)famValue.get("CHIL");
+			}
+			
+			if(chil!="")
+			{
+				if(chil.contains("-"))
+				{
+					String[] children = chil.split("-");
+					ArrayList child = new ArrayList<String>(Arrays.asList(children));
+					Set innerset = family.entrySet();
+					Iterator innerit = innerset.iterator();
+					
+					while(innerit.hasNext())
+					{
+						Map.Entry innerme = (Map.Entry)innerit.next();
+						String innerfamId = innerme.getKey().toString();
+						HashMap innerfamValue = (HashMap)innerme.getValue();
+						
+						String wife = "";
+						String husb = "";
+						
+						if(famValue.containsKey("WIFE"))
+						{
+							wife = (String)innerfamValue.get("WIFE");
+						}
+						
+						if(famValue.containsKey("HUSB"))
+						{
+							husb = (String)innerfamValue.get("HUSB");
+						}
+						
+						if(husb!="" && wife!="")
+						{
+							if(child.contains(husb) && child.contains(wife))
+							{
+								System.out.println("US#18: Siblings cannot marry eachother. Family ID: "+innerfamId);
+								output+="US#18: Siblings cannot marry eachother. Family ID: "+innerfamId;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return output;
+    }
+
+    //US#37 List Living Survivors
+	public String listRecentSurvivors()
+	{
+		String output = "";
+		String eol = System.getProperty("line.separator");
+		Set set = individual.entrySet();
+		Iterator it = set.iterator();
+		List<String> deadPeople = new ArrayList<String>();
+		List<String> survivors = new ArrayList<String>();
+		
+		while(it.hasNext())
+		{
+			Map.Entry me = (Map.Entry)it.next();
+			String indId = me.getKey().toString();
+			HashMap indVal = (HashMap)me.getValue();
+			if(indVal.containsKey("DEAT"))
+			{
+				deadPeople.add(indId);
+			}
+		}
+		
+		if(deadPeople.size()>0)
+		{
+			set = family.entrySet();
+			it = set.iterator();
+			
+			while(it.hasNext())
+			{
+				boolean flg = false;
+				Map.Entry me = (Map.Entry)it.next();
+				String famId = me.getKey().toString();
+				HashMap famValue = (HashMap)me.getValue();
+				String wife = "";
+				String husb = "";
+				String chil = "";
+				
+				if(famValue.containsKey("WIFE"))
+				{
+					wife = (String)famValue.get("WIFE");
+					if(deadPeople.contains(wife))
+					{
+						flg = true;
+					}
+				}
+				
+				if(famValue.containsKey("HUSB"))
+				{
+					husb = (String)famValue.get("HUSB");
+					if(deadPeople.contains(wife))
+					{
+						flg = true;
+					}
+				}
+				
+				if(famValue.containsKey("CHIL"))
+				{
+					chil = (String)famValue.get("CHIL");
+				}
+				
+				if(flg)
+				{
+					if(!deadPeople.contains(wife))
+					{
+						survivors.add(wife);
+					}
+					
+					if(!deadPeople.contains(husb))
+					{
+						survivors.add(husb);
+					}
+					
+					if(chil!="")
+					{
+						if(chil.contains("-"))
+						{
+							String[] children = chil.split("-");
+							
+							for(String c:children)
+							{
+								HashMap tempMap = (HashMap)individual.get(c);
+								if(!deadPeople.contains(c))
+								{
+									survivors.add(c);
+								}
+							}
+						}
+						else
+						{
+							if(!deadPeople.contains(chil))
+							{
+								survivors.add(chil);
+							}
+						}
+					}
+					System.out.println();
+					output+="US#37: Recent Survivors for family "+famId+eol;
+					for(int i=0;i<survivors.size();i++)
+					{
+						System.out.println(survivors.get(i));
+						output+=survivors.get(i)+eol;
+					}
+				}
+			}
+			
+		}
+		return output;
 	}
-	
-	/* public int getLineNumber() {
-		return Thread.currentThread().getStackTrace()[2].getLineNumber();
-	} */
 }
+
 
 class gedcomParserP04
 {
@@ -1984,7 +2277,7 @@ class gedcomParserP04
 				
 		try
 		{ 
-			File fl = new File("C:\\Users\\skind\\Desktop\\Stevens\\Agile\\Team03Project08\\output.txt");
+			File fl = new File("E:\\Stevens\\CS555 Agile\\\\Week 5\\output.txt");
 			if (!fl.exists()) 
 			{
 				fl.createNewFile();
@@ -1994,7 +2287,7 @@ class gedcomParserP04
 			BufferedWriter bw = new BufferedWriter(fw);
 			String line;
 			List lineList = new ArrayList();
-			br = new BufferedReader(new FileReader("C:\\Users\\skind\\Desktop\\Stevens\\Agile\\Team03Project08\\familyTreeNew.ged"));
+			br = new BufferedReader(new FileReader("E:\\Stevens\\CS555 Agile\\Week 4\\familyTreeNew.ged"));
 			while((line = br.readLine()) != null)
 			{
 				lineList.add(line);
@@ -2419,6 +2712,12 @@ class gedcomParserP04
 			
 			//US#13
 			output+=fds.siblingSpacing();
+			
+			//US#37
+			output+=fds.listRecentSurvivors();
+			
+			//US#18
+			output+=fds.siblingsShouldNotMarry();
 			
 			System.out.println(fds.printSummary());
 			output+=fds.printSummary();
